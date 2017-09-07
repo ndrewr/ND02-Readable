@@ -1,0 +1,53 @@
+{
+  "name": "Readable",
+  "author": "Andrew R Chen",
+  "version": "0.1.0",
+  "description": "A Udacity Reddit Clone project for ReactND",
+  "private": true,
+  "main": "index.js",
+  "license": "ISC",
+  "keywords": [
+    "udacity",
+    "redux",
+    "readable",
+    "react"
+  ],
+  "dependencies": {
+    "prop-types": "^15.5.10",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-redux": "^5.0.5",
+    "react-router-dom": "4.1.1",
+    "redux": "^3.7.2"
+  },
+  "devDependencies": {
+    "body-parser": "^1.17.1",
+    "clone": "^2.1.1",
+    "cors": "^2.8.3",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.2",
+    "flow-bin": "^0.54.1",
+    "gh-pages": "^1.0.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^4.1.2",
+    "prettier": "^1.6.1",
+    "react-scripts": "1.0.13"
+  },
+  "scripts": {
+    "start": "react-scripts start | npm run server",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "server": "node ./server/server",
+    "flow": "flow",
+    "precommit": "lint-staged",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,json,css}": [
+      "prettier --single-quote --write",
+      "git add"
+    ]
+  }
+}

@@ -7,11 +7,13 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-import './index.css';
+import configureStore from './store/configureStore'
+
+// import './index.css';
 
 const AppContainer = () =>
   <Router>
-    <App />
+    <App store={configureStore()} />
   </Router>
 
 ReactDOM.render(<AppContainer />, document.getElementById('root'));

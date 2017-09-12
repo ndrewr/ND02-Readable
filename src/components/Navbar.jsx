@@ -1,11 +1,17 @@
-import React from 'react'
+// @flow
+
+import * as React from 'react'
 import { Link } from 'react-router-dom';
 
 import logo from '../logo.svg';
 
 import { Container, Image, Menu } from 'semantic-ui-react'
 
-const Navbar = ({children}) => (
+type Props = {
+  children?: React.Node,
+};
+
+const Navbar = ({children}: Props) => (
   <Menu fixed='top' inverted>
     <Container>
       <Menu.Item as='a' header>

@@ -18,7 +18,8 @@
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.5",
     "react-router-dom": "4.1.1",
-    "redux": "^3.7.2"
+    "redux": "^3.7.2",
+    "semantic-ui-react": "^0.72.0"
   },
   "devDependencies": {
     "body-parser": "^1.17.1",

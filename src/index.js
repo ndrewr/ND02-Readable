@@ -9,8 +9,6 @@ import registerServiceWorker from './registerServiceWorker';
 
 import configureStore from './store/configureStore'
 
-// import './index.css';
-
 const AppContainer = () =>
   <Router>
     <App store={configureStore()} />

@@ -8,6 +8,8 @@ import './App.css';
 
 import AppLayout from './components/AppLayout'
 
+import HomePage from './views/home'
+
 // const Root = ({ store }) => (
 //   <Provider store={store}>
 //     <div>
@@ -31,7 +33,7 @@ class App extends Component<Props> {
       <Provider store={this.props.store}>
         <div className="App">
           <AppLayout>
-            <Route exact path="/" component={() => <h1>Home!</h1>} />
+            <Route exact path="/" component={HomePage} />
             <Route path="/category/:type" render={({ match }) => <h1>Category! {match.params.type}</h1>} />
           </AppLayout>
         </div>

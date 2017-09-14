@@ -11,12 +11,13 @@ import Footer from './Footer'
 import Navbar from './Navbar'
 
 type Props = {
+  categories: any,
   children?: React.Node,
 };
 
-const AppLayout = ({children}: Props) => (
+const AppLayout = ({categories, children}: Props) => (
   <div>
-    <Navbar />
+    <Navbar categories={categories} />
     <Container text style={{ marginTop: '7em', minHeight: '90%'}}>
       <Header as='h1'>Make life more Readable.</Header>
       {children}

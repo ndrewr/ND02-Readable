@@ -27,13 +27,48 @@ type Props = {
   store: any,
 };
 
-class App extends Component<Props> {
+type State = {
+  cats: any,
+};
+
+class App extends Component<Props, State> {
+  state = {
+    cats: []
+  }
+
+  componentDidMount() {
+    const url = 'http://localhost:5001/categories'
+    fetch(
+      url,
+      {
+          headers: { 'Authorization': 'whatever-you-want' }
+      }
+    )
+    .then((results) => {
+      return results.json()
+    })
+    .then((data) => {
+      console.log('fetching categories...', data)
+      this.setState({cats: data.categories})
+    })
+    .catch((error) => {
+      console.log('There was a problem. ', error)
+    })
+  }
+
+
   render() {
+    const { cats } = this.state
+
+    const wrapView = (ViewComponent) => {
+      return (props) => <ViewComponent {...props} categories={cats} />
+    }
+
     return (
       <Provider store={this.props.store}>
         <div className="App">
-          <AppLayout>
-            <Route exact path="/" component={HomePage} />
+          <AppLayout categories={cats} >
+            <Route exact path="/" render={wrapView(HomePage)} />
             <Route path="/category/:type" render={({ match }) => <h1>Category! {match.params.type}</h1>} />
           </AppLayout>
         </div>

@@ -8,10 +8,10 @@ import logo from '../logo.svg';
 import { Container, Image, Menu } from 'semantic-ui-react'
 
 type Props = {
-  children?: React.Node,
+  categories: any,
 };
 
-const Navbar = ({children}: Props) => (
+const Navbar = ({categories}: Props) => (
   <Menu fixed='top' inverted>
     <Container>
       <Menu.Item as='a' header>
@@ -23,17 +23,15 @@ const Navbar = ({children}: Props) => (
         READABLE
       </Menu.Item>
       <Menu.Item as="a">
-        <Link to="/">Home</Link>
+        <Link to="/">Trending</Link>
       </Menu.Item>
-      <Menu.Item as="a">
-        <Link to="/category/pirates">Pirates</Link>
-      </Menu.Item>
-      <Menu.Item as="a">
-        <Link to="/category/ninjas">Ninjas</Link>
-      </Menu.Item>
-      <Menu.Item as="a">
-        <Link to="/category/sharks">Sharks</Link>
-      </Menu.Item>
+      {categories.map((category) =>
+        <Menu.Item key={category.name} as="a">
+          <Link to={`/category/${category.name}`}>
+            {category.name}
+          </Link>
+        </Menu.Item>
+      )}
     </Container>
   </Menu>
 )

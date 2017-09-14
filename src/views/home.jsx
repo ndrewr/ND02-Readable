@@ -3,40 +3,36 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-// import './App.css';
-
-// import AppLayout from './components/AppLayout'
-
 import {
-  Button,
-  Container,
-  Divider,
-  Grid,
+  // Button,
+  // Container,
+  // Divider,
+  // Grid,
   Header,
   Icon,
-  Image,
+  // Image,
   List,
-  Menu,
-  Segment,
-  Visibility,
+  // Menu,
+  // Segment,
+  // Visibility,
 } from 'semantic-ui-react'
 
 type Props = {
+  categories: any,
   store: any,
 };
 
 type State = {
-  cats: any,
+  posts: any,
 };
 
 class HomePage extends Component<Props, State> {
   // temp state
   state = {
-    cats: []
+    posts: []
   }
-
   componentDidMount() {
-    const url = 'http://localhost:5001/categories'
+    const url = 'http://localhost:5001/posts'
     fetch(
       url,
       {
@@ -47,8 +43,8 @@ class HomePage extends Component<Props, State> {
       return results.json()
     })
     .then((data) => {
-      console.log('fetching categories...', data)
-      this.setState({cats: data.categories})
+      console.log('fetching posts...', data)
+      this.setState({posts: data})
     })
     .catch((error) => {
       console.log('There was a problem. ', error)
@@ -56,9 +52,10 @@ class HomePage extends Component<Props, State> {
   }
 
   render() {
-    const { cats } = this.state
+    const { posts } = this.state
+    const { categories } = this.props
 
-        // <Image avatar src='/assets/images/avatar/small/rachel.png' />
+    // <Image avatar src='/assets/images/avatar/small/rachel.png' />
 
     const CatgoryItem = ({category}) => (
         <List.Item>
@@ -72,12 +69,31 @@ class HomePage extends Component<Props, State> {
         </List.Item>
     )
 
+    const Post = ({post}) => (
+        <List.Item>
+          <Icon circular name="cube" size="large" />
+            <List.Content>
+              <List.Header as='a'>
+                {post.title}
+              </List.Header>
+              <Link to={`/post/${post.id}`}>
+                <List.Description>
+                  by {post.author} on {new Date(post.timestamp).toDateString()}
+                </List.Description>
+              </Link>
+            </List.Content>
+        </List.Item>
+    )
+
     return (
       <div className="home">
         <Header size="huge" textAlign="center" content="Home." dividing />
-          <List>
-            {cats.map((category, index) => <CatgoryItem key={category.name + index} category={category} />)}
-          </List>
+        <List>
+          {categories.map((category, index) => <CatgoryItem key={category.name + index} category={category} />)}
+        </List>
+         <List>
+          {posts.map((post) => <Post key={post.id} post={post} />)}
+        </List>
       </div>
     );
   }

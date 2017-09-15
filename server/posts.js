@@ -22,6 +22,86 @@ const defaultData = {
     category: 'redux',
     voteScore: -5,
     deleted: false
+  },
+  "1nu3ok3rm9mf1d32lnez": {
+    id: '1nu3ok3rm9mf1d32lnez',
+    timestamp: 1468482837190,
+    title: 'Why Redux',
+    body: 'Lets talk about redux. The javascript library, just to be clear.',
+    author: 'thangPrime',
+    category: 'redux',
+    voteScore: 0,
+    deleted: false
+  },  
+  "8nr6og3sm6mc1b97lsei": {
+    id: '8nr6og3sm6mc1b97lsei',
+    timestamp: 1468479767190,
+    title: 'My reactions to react',
+    body: 'A play by play oral history of my true to life reactions to react.',
+    author: 'thingone',
+    category: 'react',
+    voteScore: 10,
+    deleted: false
+  },
+  "4gr8og9eb6vc2b76lpec": {
+    id: '4gr8og9eb6vc2b76lpec',
+    timestamp: 1488472733190,
+    title: 'So you want to better yoself',
+    body: 'Do not despair when the means to salvation is in your grasp. On the internets.',
+    author: 'thaUdacian',
+    category: 'udacity',
+    voteScore: 18,
+    deleted: false
+  },
+  "4er2oc7en2qa2x86ljwb": {
+    id: '4er2oc7en2qa2x86ljwb',
+    timestamp: 1482451733190,
+    title: 'React may not be what you need',
+    body: 'Do not fall into the React v Angular v Vue wars! Choose what is best for your situation.',
+    author: 'DanAbramov',
+    category: 'react',
+    voteScore: 1,
+    deleted: false
+  },
+  "7ir2oc4en2fr2v16lewd": {
+    id: '7ir2oc4en2fr2v16lewd',
+    timestamp: 1483876733190,
+    title: 'Revolutioning how and where we learn',
+    body: 'Got internets and a computer or mobile phone? Then no excuse not to Git Gud.',
+    author: 'WalesMD',
+    category: 'udacity',
+    voteScore: 2,
+    deleted: false
+  },
+  "5yu2oc4re2fr1a14weds": {
+    id: '5yu2oc4re2fr1a14weds',
+    timestamp: 1487771333127,
+    title: 'React and the Functional Progamming Paradign',
+    body: 'Object oriented paradigm popularity may be usurped.',
+    author: 'TheDWB',
+    category: 'react',
+    voteScore: -3,
+    deleted: false
+  },
+  "8tf2oc4re6gg1a14opti": {
+    id: '8tf2oc4re6gg1a14opti',
+    timestamp: 1473771630953,
+    title: 'Handling Page Transitions in React',
+    body: 'Its not super straightforward but its also really not too bad at all.',
+    author: 'TheDWB',
+    category: 'react',
+    voteScore: 8,
+    deleted: false
+  },
+  "5le5lw2en2wl2v13kwos": {
+    id: '5le5lw2en2wl2v13kwos',
+    timestamp: 1479726733382,
+    title: 'I finished the Front End Program in 6 weeks!',
+    body: 'Legit, too.',
+    author: 'thaUdacian',
+    category: 'udacity',
+    voteScore: 1,
+    deleted: false
   }
 }
 

@@ -14,6 +14,7 @@ import {
   List,
   // Menu,
   // Segment,
+  Statistic,
   // Visibility,
 } from 'semantic-ui-react'
 
@@ -23,14 +24,17 @@ type Props = {
 };
 
 type State = {
+  sortFilter: string,
   posts: any,
 };
 
 class HomePage extends Component<Props, State> {
   // temp state
   state = {
+    sortFilter: 'score-high',
     posts: []
   }
+
   componentDidMount() {
     const url = 'http://localhost:5001/posts'
     fetch(
@@ -51,24 +55,37 @@ class HomePage extends Component<Props, State> {
     })
   }
 
+  sortedList = () => {
+    const { posts, sortFilter } = this.state
+    // const { sortFilter } = this.state
+
+    switch (sortFilter) {
+      case 'time-ascending':
+        return posts.sort((a, b): number => {
+          if (a.timestamp > b.timestamp) return -1
+          else if (a.timestamp === b.timestamp) return 0
+          else return 1
+        })
+      case 'time-descending':
+        return posts.sort((a, b): number => {
+          if (a.timestamp > b.timestamp) return 1
+          else if (a.timestamp === b.timestamp) return 0
+          else return -1
+        })
+      default:
+        return posts.sort((a, b): number => {
+          if (a.voteScore > b.voteScore) return -1
+          else if (a.voteScore === b.voteScore) return 0
+          else return 1
+        })
+    }
+  }
+
   render() {
-    const { posts } = this.state
+    const { posts, sortFilter } = this.state
     const { categories } = this.props
 
     // <Image avatar src='/assets/images/avatar/small/rachel.png' />
-
-    const CatgoryItem = ({category}) => (
-        <List.Item>
-          <Icon circular name="cube" size="large" />
-            <List.Content>
-              <List.Header as='a'>{category.name}</List.Header>
-              <Link to={`/category/${category.name}`}>
-                <List.Description>see more</List.Description>
-              </Link>
-            </List.Content>
-        </List.Item>
-    )
-
     const Post = ({post}) => (
         <List.Item>
           <Icon circular name="cube" size="large" />
@@ -81,6 +98,10 @@ class HomePage extends Component<Props, State> {
                   by {post.author} on {new Date(post.timestamp).toDateString()}
                 </List.Description>
               </Link>
+              <Statistic>
+                <Statistic.Label>Score</Statistic.Label>
+                <Statistic.Value>{post.voteScore}</Statistic.Value>
+              </Statistic>
             </List.Content>
         </List.Item>
     )
@@ -88,11 +109,8 @@ class HomePage extends Component<Props, State> {
     return (
       <div className="home">
         <Header size="huge" textAlign="center" content="Home." dividing />
-        <List>
-          {categories.map((category, index) => <CatgoryItem key={category.name + index} category={category} />)}
-        </List>
          <List>
-          {posts.map((post) => <Post key={post.id} post={post} />)}
+          {this.sortedList().map((post) => <Post key={post.id} post={post} />)}
         </List>
       </div>
     );

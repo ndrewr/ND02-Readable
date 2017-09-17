@@ -19,7 +19,6 @@ const AppLayout = ({categories, children}: Props) => (
   <div>
     <Navbar categories={categories} />
     <Container text style={{ marginTop: '7em', minHeight: '90%'}}>
-      <Header as='h1'>Make life more Readable.</Header>
       {children}
     </Container>
     <Footer />

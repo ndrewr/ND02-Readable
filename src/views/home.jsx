@@ -18,19 +18,24 @@ import {
   // Visibility,
 } from 'semantic-ui-react'
 
+import ListDisplayControls from '../components/ListDisplayControls'
+
 type Props = {
   categories: any,
   store: any,
 };
 
 type State = {
+  sortDirection: string,
   sortFilter: string,
   posts: any,
 };
 
+
 class HomePage extends Component<Props, State> {
   // temp state
   state = {
+    sortDirection: 'desc',
     sortFilter: 'score-high',
     posts: []
   }
@@ -56,20 +61,20 @@ class HomePage extends Component<Props, State> {
   }
 
   sortedList = () => {
-    const { posts, sortFilter } = this.state
+    const { posts, sortFilter, sortDirection } = this.state
 
-    switch (sortFilter) {
-      case 'time-ascending':
-        return posts.sort((a, b): number => {
-          if (a.timestamp > b.timestamp) return -1
-          else if (a.timestamp === b.timestamp) return 0
-          else return 1
-        })
-      case 'time-descending':
+    switch (`${sortFilter}-${sortDirection}`) {
+      case 'time-asc':
         return posts.sort((a, b): number => {
           if (a.timestamp > b.timestamp) return 1
           else if (a.timestamp === b.timestamp) return 0
           else return -1
+        })
+      case 'time-desc':
+        return posts.sort((a, b): number => {
+          if (a.timestamp > b.timestamp) return -1
+          else if (a.timestamp === b.timestamp) return 0
+          else return 1
         })
       default:
         return posts.sort((a, b): number => {
@@ -78,6 +83,14 @@ class HomePage extends Component<Props, State> {
           else return 1
         })
     }
+  }
+
+  setSortDirection = (selectedDirection: string) => {
+    this.setState({ sortDirection: selectedDirection })
+  }
+
+  setSortFilter = (selectedFilter: string) => {
+    this.setState({ sortFilter: selectedFilter })
   }
 
   render() {
@@ -109,6 +122,11 @@ class HomePage extends Component<Props, State> {
     return (
       <div className="home">
         <Header size="huge" textAlign="center" content="Making life more Readable!" dividing />
+        <ListDisplayControls
+          options={['score', 'time']}
+          onFilterChange={this.setSortFilter}
+          onDirectionChange={this.setSortDirection}
+        />
         <List>
           {this.sortedList().map((post) => <Post key={post.id} post={post} />)}
         </List>

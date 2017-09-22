@@ -1,14 +1,26 @@
+// @flow
+
 // import * as ActionTypes from '../actions'
-// import paginate from './paginate'
 import { combineReducers } from 'redux'
 
-const rootReducer = (state = {}, action) => {
-  console.log('reducer: ', action)
-  return state
-}
+import listFilter from './listFilter'
+import posts from './posts'
+
+// const rootReducer = (state = {}, action) => {
+//   console.log('reducer: ', action)
+//   return state
+// }
 // const rootReducer = combineReducers({
   // pagination,
   // errorMessage,
 // })
 
-export default rootReducer
+// function users (state = {}, action) {
+//   // ...
+// }
+
+export default combineReducers({
+  posts,
+});
+
+// export default rootReducer

@@ -7,53 +7,34 @@ import {
   // Container,
   // Divider,
   // Grid,
-  // Header,
   Icon,
-  // Image,
   List,
-  // Menu,
-  // Segment,
-  // Statistic,
   // Visibility,
   Form,
   Radio,
 } from 'semantic-ui-react'
 
 type Props = {
+  direction: string,
+  filter: string,
   options: any,
   onDirectionChange: any,
   onFilterChange: any,
 };
 
-type State = {
-  selectedDirection: string,
-  selectedOption: string,
-};
-
-
-class ListDisplayControls extends Component<Props, State> {
-  state = {
-    selectedDirection: 'desc',
-    selectedOption: 'score',
-  }
-
+class ListDisplayControls extends Component<Props> {
   handleFilterChange = (event, { value }) => {
     const { onFilterChange } = this.props
-    console.log('changes....', event);
     onFilterChange(value);
-    this.setState({selectedOption: value})
   }
 
   handleDirectionChange = (event, { value }) => {
     const { onDirectionChange } = this.props
-    console.log('changes....', event, value);
     onDirectionChange(value);
-    this.setState({selectedDirection: value})
   }
 
   render() {
-    const { options } = this.props
-    const { selectedDirection, selectedOption } = this.state
+    const { direction: selectedDirection, filter: selectedOption, options } = this.props
 
     const SelectOption = ({optionName, selectedOption, handleChange}) => (
       <Form.Field>
@@ -66,7 +47,7 @@ class ListDisplayControls extends Component<Props, State> {
         />
       </Form.Field>
     )
-    console.log('options are : ', options)
+
     return (
       <Form>
       <Form.Group inline>
@@ -75,6 +56,7 @@ class ListDisplayControls extends Component<Props, State> {
         </Form.Field>
         {options.map(option =>
           <SelectOption
+            key={option}
             optionName={option}
             selectedOption={selectedOption}
             handleChange={this.handleFilterChange}

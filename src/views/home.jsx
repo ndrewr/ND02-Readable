@@ -1,7 +1,10 @@
 // @flow
 
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+
+import readableApi from '../utils/readableApi'
 
 import {
   // Button,
@@ -21,47 +24,38 @@ import {
 import ListDisplayControls from '../components/ListDisplayControls'
 
 type Props = {
-  categories: any,
+  // categories: any,
   store: any,
+  posts: Array<any>,
 };
 
 type State = {
   sortDirection: string,
   sortFilter: string,
-  posts: any,
+  // posts: any,
 };
-
 
 class HomePage extends Component<Props, State> {
   // temp state
   state = {
     sortDirection: 'desc',
-    sortFilter: 'score-high',
-    posts: []
+    sortFilter: 'score',
+    // posts: []
   }
 
   componentDidMount() {
-    const url = 'http://localhost:5001/posts'
-    fetch(
-      url,
-      {
-          headers: { 'Authorization': 'whatever-you-want' }
-      }
-    )
-    .then((results) => {
-      return results.json()
-    })
-    .then((data) => {
-      console.log('fetching posts...', data)
-      this.setState({posts: data})
-    })
-    .catch((error) => {
-      console.log('There was a problem. ', error)
-    })
+    // readableApi.getPosts().then((data) => {
+      // this.setState({posts: data})
+    // })
   }
 
   sortedList = () => {
-    const { posts, sortFilter, sortDirection } = this.state
+    // const { posts, sortFilter, sortDirection } = this.state
+    const { sortFilter, sortDirection } = this.state
+    const { posts } = this.props
+
+    console.log('sorting...', posts)
+    // console.table(this.props)
 
     switch (`${sortFilter}-${sortDirection}`) {
       case 'time-asc':
@@ -75,6 +69,12 @@ class HomePage extends Component<Props, State> {
           if (a.timestamp > b.timestamp) return -1
           else if (a.timestamp === b.timestamp) return 0
           else return 1
+        })
+      case 'score-asc':
+        return posts.sort((a, b): number => {
+          if (a.voteScore > b.voteScore) return 1
+          else if (a.voteScore === b.voteScore) return 0
+          else return -1
         })
       default:
         return posts.sort((a, b): number => {
@@ -94,11 +94,15 @@ class HomePage extends Component<Props, State> {
   }
 
   render() {
-    const { posts, sortFilter } = this.state
-    const { categories } = this.props
+    // const { posts, sortDirection, sortFilter } = this.state
 
-    // <Image avatar src='/assets/images/avatar/small/rachel.png' />
-          // <Icon circular name="cube" size="large" />
+    const { sortFilter, sortDirection } = this.state
+    const { posts } = this.props
+
+    // const { categories } = this.props
+
+    // console.table('render Home: ', this.props)
+
     const Post = ({post}) => (
         <List.Item style={{marginBottom: '1rem'}}>
           <List.Content>
@@ -123,6 +127,8 @@ class HomePage extends Component<Props, State> {
       <div className="home">
         <Header size="huge" textAlign="center" content="Making life more Readable!" dividing />
         <ListDisplayControls
+          direction={sortDirection}
+          filter={sortFilter}
           options={['score', 'time']}
           onFilterChange={this.setSortFilter}
           onDirectionChange={this.setSortDirection}
@@ -135,4 +141,18 @@ class HomePage extends Component<Props, State> {
   }
 }
 
-export default HomePage;
+const mapStateToProps = (state, props) => {
+  console.log('mappin', state)
+  return ({
+  // sortDirection: 'desc',
+  // sortFilter: 'score',
+    posts: state.posts || [],
+  });
+}
+
+// const mapDispatchToProps = dispatch => ({
+
+// });
+
+export default connect(mapStateToProps)(HomePage)
+// export default HomePage;

@@ -5,12 +5,14 @@ import thunk from 'redux-thunk'
 import rootReducer from '../reducers'
 // import DevTools from '../containers/DevTools'
 
-const configureStore = preloadedState => {
+import { loadPosts } from '../actions/posts'
+import { loadCategories } from '../actions/categories'
+
+
+
+const configureStore = () => {
   const store = createStore(
     rootReducer,
-    preloadedState || {posts: []},
-    // preloadedState,
-
     compose(
       applyMiddleware(thunk)
       // applyMiddleware(thunk, api, createLogger()),
@@ -25,6 +27,10 @@ const configureStore = preloadedState => {
       // store.replaceReducer(nextRootReducer)
     // })
   // }
+
+  // fetch initial data
+  store.dispatch(loadCategories())
+  store.dispatch(loadPosts())
 
   return store
 }

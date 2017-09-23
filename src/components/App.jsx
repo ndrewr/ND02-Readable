@@ -1,39 +1,26 @@
 // @flow
 
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import { Provider } from 'react-redux'
 
-import './App.css';
+import '../App.css';
 
-import readableApi from './utils/readableApi'
+import readableApi from '../utils/readableApi'
 
-import AppLayout from './components/AppLayout'
+import AppLayout from '../components/AppLayout'
 
-import HomePage from './views/home'
+import HomePage from '../views/home'
 
 type Props = {
   store: any,
+  categories: Array<string>
 };
 
-type State = {
-  categories: any,
-};
-
-class App extends Component<Props, State> {
-  state = {
-    categories: []
-  }
-
-  componentDidMount() {
-    readableApi.getCategories().then((data) => {
-      this.setState({categories: data.categories})
-    })
-  }
-
-
+class App extends Component<Props> {
   render() {
-    const { categories } = this.state
+    const { categories } = this.props
 
     const wrapView = (ViewComponent) => {
       return (props) => <ViewComponent {...props} categories={categories} />
@@ -52,4 +39,11 @@ class App extends Component<Props, State> {
   }
 }
 
-export default App;
+const mapStateToProps = (state, props) => {
+  console.log('mappin', state)
+  return ({
+    categories: state.categories || [],
+  });
+}
+
+export default connect(mapStateToProps)(App)

@@ -24,7 +24,6 @@ import {
 import ListDisplayControls from '../components/ListDisplayControls'
 
 type Props = {
-  // categories: any,
   store: any,
   posts: Array<any>,
 };
@@ -32,7 +31,6 @@ type Props = {
 type State = {
   sortDirection: string,
   sortFilter: string,
-  // posts: any,
 };
 
 class HomePage extends Component<Props, State> {
@@ -40,22 +38,11 @@ class HomePage extends Component<Props, State> {
   state = {
     sortDirection: 'desc',
     sortFilter: 'score',
-    // posts: []
-  }
-
-  componentDidMount() {
-    // readableApi.getPosts().then((data) => {
-      // this.setState({posts: data})
-    // })
   }
 
   sortedList = () => {
-    // const { posts, sortFilter, sortDirection } = this.state
     const { sortFilter, sortDirection } = this.state
     const { posts } = this.props
-
-    console.log('sorting...', posts)
-    // console.table(this.props)
 
     switch (`${sortFilter}-${sortDirection}`) {
       case 'time-asc':
@@ -94,14 +81,8 @@ class HomePage extends Component<Props, State> {
   }
 
   render() {
-    // const { posts, sortDirection, sortFilter } = this.state
-
     const { sortFilter, sortDirection } = this.state
     const { posts } = this.props
-
-    // const { categories } = this.props
-
-    // console.table('render Home: ', this.props)
 
     const Post = ({post}) => (
         <List.Item style={{marginBottom: '1rem'}}>
@@ -142,10 +123,7 @@ class HomePage extends Component<Props, State> {
 }
 
 const mapStateToProps = (state, props) => {
-  console.log('mappin', state)
   return ({
-  // sortDirection: 'desc',
-  // sortFilter: 'score',
     posts: state.posts || [],
   });
 }

@@ -5,6 +5,7 @@ import { combineReducers } from 'redux'
 
 import listFilter from './listFilter'
 import posts from './posts'
+import categories from './categories'
 
 // const rootReducer = (state = {}, action) => {
 //   console.log('reducer: ', action)
@@ -20,6 +21,7 @@ import posts from './posts'
 // }
 
 export default combineReducers({
+  categories,
   posts,
 });
 

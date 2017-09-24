@@ -5,8 +5,6 @@ import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import { Provider } from 'react-redux'
 
-import '../App.css';
-
 import readableApi from '../utils/readableApi'
 
 import AppLayout from '../components/AppLayout'
@@ -18,6 +16,7 @@ type Props = {
   categories: Array<string>
 };
 
+// refactor to stateless component
 class App extends Component<Props> {
   render() {
     const { categories } = this.props
@@ -39,11 +38,8 @@ class App extends Component<Props> {
   }
 }
 
-const mapStateToProps = (state, props) => {
-  console.log('mappin', state)
-  return ({
-    categories: state.categories || [],
-  });
-}
+const mapStateToProps = (state) => ({
+  categories: state.categories || [],
+})
 
 export default connect(mapStateToProps)(App)

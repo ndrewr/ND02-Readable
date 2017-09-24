@@ -1,11 +1,10 @@
 // @flow
 
 import React from 'react'
+import { Container, Divider, Image, List, Segment } from 'semantic-ui-react'
 // import { Link } from 'react-router-dom';
 
-import logo from '../logo.svg';
-
-import { Container, Divider, Image, List, Segment } from 'semantic-ui-react'
+import Logo from './Logo'
 
 const Footer = () => (
   <Segment
@@ -15,7 +14,7 @@ const Footer = () => (
   >
     <Container textAlign='center'>
       <Divider inverted section />
-      <Image centered src={logo} className="App-logo" alt="logo" />
+      <Logo spin />
       <List horizontal inverted divided link>
         <List.Item as='a' href='#'>Site Map</List.Item>
         <List.Item as='a' href='#'>Contact Us</List.Item>

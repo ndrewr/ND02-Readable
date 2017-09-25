@@ -1,11 +1,14 @@
 // @flow
 // import * as ActionTypes from '../actions'
 
-const initialState = []
+type PostAction = {
+  type: string,
+  posts: Array<string>
+};
 
 const postsReducer = (
-  state = initialState,
-  action,
+  state: Array<string> = [],
+  action: PostAction,
 ) => {
   switch (action.type) {
     case 'POSTS_LOADED':

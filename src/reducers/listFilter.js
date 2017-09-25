@@ -1,51 +1,37 @@
+// @flow
 // import * as ActionTypes from '../actions'
-// import paginate from './paginate'
-// import { combineReducers } from 'redux'
+
+const initialState = {
+  sortFilter: 'score',
+  sortDirection: 'desc'
+}
+
+type ListFilter = {
+  sortDirection?: string,
+  sortFilter?: string
+}
+
+type FilterAction = {
+  type: string,
+  filter: ListFilter
+};
 
 // saves User list filter settings between pages/views
 const listFilterReducer = (
-  state = {
-    sortFilter: 'score',
-    sortDirection: 'desc',
-    posts: [], // how do I get this???
-  },
-  action
+  state: ListFilter = initialState,
+  action: FilterAction
 ) => {
   // console.log('reducer: ', action)
-  // return state
+  // const { sortDirection, sortFilter } = action.filter
+  const newState = {...state, ...action.filter}
 
-  const { posts, sortFilter, sortDirection } = this.state
-
-  switch (`${sortFilter}-${sortDirection}`) {
-    case 'time-asc':
-      return posts.sort((a, b): number => {
-        if (a.timestamp > b.timestamp) return 1
-        else if (a.timestamp === b.timestamp) return 0
-        else return -1
-      })
-    case 'time-desc':
-      return posts.sort((a, b): number => {
-        if (a.timestamp > b.timestamp) return -1
-        else if (a.timestamp === b.timestamp) return 0
-        else return 1
-      })
-    case 'score-asc':
-      return posts.sort((a, b): number => {
-        if (a.voteScore > b.voteScore) return 1
-        else if (a.voteScore === b.voteScore) return 0
-        else return -1
-      })
+  switch (action.type) {
+    case 'SET_LIST_DIRECTION':
+    case 'SET_LIST_FILTER':
+      return `${newState.sortFilter}-${newState.sortDirection}`
     default:
-      return posts.sort((a, b): number => {
-        if (a.voteScore > b.voteScore) return -1
-        else if (a.voteScore === b.voteScore) return 0
-        else return 1
-      })
+      return state      
   }
 }
-// const rootReducer = combineReducers({
-  // pagination,
-  // errorMessage,
-// })
 
 export default listFilterReducer

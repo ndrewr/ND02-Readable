@@ -4,15 +4,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import readableApi from '../utils/readableApi'
-
 import {
   // Button,
   // Container,
   // Divider,
   // Grid,
   Header,
-  Icon,
+  // Icon,
   // Image,
   List,
   // Menu,
@@ -82,7 +80,6 @@ class HomePage extends Component<Props, State> {
 
   render() {
     const { sortFilter, sortDirection } = this.state
-    const { posts } = this.props
 
     const Post = ({post}) => (
         <List.Item style={{marginBottom: '1rem'}}>
@@ -133,4 +130,3 @@ const mapStateToProps = (state, props) => {
 // });
 
 export default connect(mapStateToProps)(HomePage)
-// export default HomePage;

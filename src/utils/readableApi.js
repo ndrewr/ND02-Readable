@@ -4,9 +4,9 @@ class ReadableApi {
   static rootURL = 'http://localhost:5001/' // TODO: dev vs deployment?
 
   static getPosts() {
-    const url = this.rootURL + 'categories'
+    const url = this.rootURL + 'posts'
     return fetch(
-      this.rootURL + 'posts',
+      url,
       {
           headers: { 'Authorization': 'whatever-you-want' }
       }

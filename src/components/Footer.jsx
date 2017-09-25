@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import { Container, Divider, Image, List, Segment } from 'semantic-ui-react'
+import { Container, Divider, List, Segment } from 'semantic-ui-react'
 // import { Link } from 'react-router-dom';
 
 import Logo from './Logo'

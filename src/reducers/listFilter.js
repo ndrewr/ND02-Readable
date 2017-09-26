@@ -21,14 +21,15 @@ const listFilterReducer = (
   state: ListFilter = initialState,
   action: FilterAction
 ) => {
-  // console.log('reducer: ', action)
-  // const { sortDirection, sortFilter } = action.filter
   const newState = {...state, ...action.filter}
 
   switch (action.type) {
     case 'SET_LIST_DIRECTION':
     case 'SET_LIST_FILTER':
-      return `${newState.sortFilter}-${newState.sortDirection}`
+      return {
+        sortFilter: newState.sortFilter,
+        sortDirection: newState.sortDirection
+      }
     default:
       return state      
   }

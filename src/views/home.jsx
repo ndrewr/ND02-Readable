@@ -21,26 +21,19 @@ import {
 
 import ListDisplayControls from '../components/ListDisplayControls'
 
-type Props = {
-  store: any,
-  posts: Array<any>,
-};
+import { setSortDirection, setSortFilter } from '../actions/listFilter'
 
-type State = {
+type Props = {
+  posts: Array<any>,
   sortDirection: string,
   sortFilter: string,
+  setFilter: () => mixed,
+  setDirection: () => mixed
 };
 
-class HomePage extends Component<Props, State> {
-  // temp state
-  state = {
-    sortDirection: 'desc',
-    sortFilter: 'score',
-  }
-
+class HomePage extends Component<Props> {
   sortedList = () => {
-    const { sortFilter, sortDirection } = this.state
-    const { posts } = this.props
+    const { posts, sortFilter, sortDirection } = this.props
 
     switch (`${sortFilter}-${sortDirection}`) {
       case 'time-asc':
@@ -70,16 +63,8 @@ class HomePage extends Component<Props, State> {
     }
   }
 
-  setSortDirection = (selectedDirection: string) => {
-    this.setState({ sortDirection: selectedDirection })
-  }
-
-  setSortFilter = (selectedFilter: string) => {
-    this.setState({ sortFilter: selectedFilter })
-  }
-
   render() {
-    const { sortFilter, sortDirection } = this.state
+    const { sortFilter, sortDirection, setFilter, setDirection } = this.props
 
     const Post = ({post}) => (
         <List.Item style={{marginBottom: '1rem'}}>
@@ -108,8 +93,8 @@ class HomePage extends Component<Props, State> {
           direction={sortDirection}
           filter={sortFilter}
           options={['score', 'time']}
-          onFilterChange={this.setSortFilter}
-          onDirectionChange={this.setSortDirection}
+          onFilterChange={setFilter}
+          onDirectionChange={setDirection}
         />
         <List>
           {this.sortedList().map((post) => <Post key={post.id} post={post} />)}
@@ -122,11 +107,14 @@ class HomePage extends Component<Props, State> {
 const mapStateToProps = (state, props) => {
   return ({
     posts: state.posts || [],
+    sortDirection: state.listFilter.sortDirection,
+    sortFilter: state.listFilter.sortFilter,
   });
 }
 
-// const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = dispatch => ({
+  setFilter: (selectedFilter) => dispatch(setSortFilter(selectedFilter)),
+  setDirection: (selectedDirection) => dispatch(setSortDirection(selectedDirection))
+});
 
-// });
-
-export default connect(mapStateToProps)(HomePage)
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage)

@@ -23,12 +23,12 @@ type Props = {
 };
 
 class ListDisplayControls extends Component<Props> {
-  handleFilterChange = (event, { value }) => {
+  handleFilterChange = (event, { value }: { value: string }) => {
     const { onFilterChange } = this.props
     onFilterChange(value);
   }
 
-  handleDirectionChange = (event, { value }) => {
+  handleDirectionChange = (event, { value }: { value: string }) => {
     const { onDirectionChange } = this.props
     onDirectionChange(value);
   }

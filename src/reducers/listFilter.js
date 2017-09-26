@@ -1,5 +1,6 @@
 // @flow
-// import * as ActionTypes from '../actions'
+
+import * as actions from '../actions/actionTypes'
 
 const initialState = {
   sortFilter: 'score',
@@ -16,7 +17,6 @@ type FilterAction = {
   filter: ListFilter
 };
 
-// saves User list filter settings between pages/views
 const listFilterReducer = (
   state: ListFilter = initialState,
   action: FilterAction
@@ -24,8 +24,8 @@ const listFilterReducer = (
   const newState = {...state, ...action.filter}
 
   switch (action.type) {
-    case 'SET_LIST_DIRECTION':
-    case 'SET_LIST_FILTER':
+    case actions.SET_LIST_DIRECTION:
+    case actions.SET_LIST_FILTER:
       return {
         sortFilter: newState.sortFilter,
         sortDirection: newState.sortDirection

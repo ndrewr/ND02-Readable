@@ -1,5 +1,6 @@
 // @flow
-// import * as ActionTypes from '../actions'
+
+import * as actions from '../actions/actionTypes'
 
 type PostAction = {
   type: string,
@@ -11,7 +12,7 @@ const postsReducer = (
   action: PostAction,
 ) => {
   switch (action.type) {
-    case 'POSTS_LOADED':
+    case actions.POSTS_LOADED:
       return action.posts
     default:
       return state

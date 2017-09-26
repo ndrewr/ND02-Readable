@@ -1,5 +1,7 @@
 // @flow
 
+import * as actions from '../actions/actionTypes'
+
 import readableApi from '../utils/readableApi';
 
 type CategoryAction = {
@@ -21,7 +23,7 @@ export function loadCategories() {
 
 export function loadCategoriesSuccess(categories: Array<string>) {
   return ({
-    type: 'CATEGORIES_LOADED',
+    type: actions.CATEGORIES_LOADED,
     categories,
   })
 }

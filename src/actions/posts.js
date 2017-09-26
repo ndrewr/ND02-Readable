@@ -2,6 +2,8 @@
 
 import readableApi from '../utils/readableApi';
 
+import * as actions from '../actions/actionTypes'
+
 type PostAction = {
   type: string,
   posts: Array<string>
@@ -21,7 +23,7 @@ export function loadPosts() {
 
 export function loadPostsSuccess(posts: Array<string>) {
   return ({
-    type: 'POSTS_LOADED',
+    type: actions.POSTS_LOADED,
     posts,
   })
 }

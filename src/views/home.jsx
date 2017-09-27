@@ -20,10 +20,12 @@ import {
 } from 'semantic-ui-react'
 
 import ListDisplayControls from '../components/ListDisplayControls'
+import PostWriter from '../components/PostWriter'
 
 import { setSortDirection, setSortFilter } from '../actions/listFilter'
 
 type Props = {
+  categories: Array<any>,
   posts: Array<any>,
   sortDirection: string,
   sortFilter: string,
@@ -64,7 +66,7 @@ class HomePage extends Component<Props> {
   }
 
   render() {
-    const { sortFilter, sortDirection, setFilter, setDirection } = this.props
+    const { categories, sortFilter, sortDirection, setFilter, setDirection } = this.props
 
     const Post = ({post}) => (
         <List.Item style={{marginBottom: '1rem'}}>
@@ -89,6 +91,7 @@ class HomePage extends Component<Props> {
     return (
       <div className="home">
         <Header size="huge" textAlign="center" content="Making life more Readable!" dividing />
+        <PostWriter categories={categories} />
         <ListDisplayControls
           direction={sortDirection}
           filter={sortFilter}
@@ -105,7 +108,9 @@ class HomePage extends Component<Props> {
 }
 
 const mapStateToProps = (state, props) => {
+  console.log('home page...', state)
   return ({
+    categories: state.categories.map(category => category.name),
     posts: state.posts || [],
     sortDirection: state.listFilter.sortDirection,
     sortFilter: state.listFilter.sortFilter,

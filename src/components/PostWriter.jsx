@@ -23,25 +23,71 @@ type Props = {
 };
 
 type State = {
+  inputAuthor: string,
+  inputContent: string,
+  inputCategory: string,
+  inputTitle: string,
   showForm: boolean,
 }
 
 class PostWriter extends Component<Props, State> {
   state = {
+    inputAuthor: '',
+    inputContent: '',
+    inputCategory: 'udacity',
+    inputTitle: '',
     showForm: false,
   }
+
+  handleAuthorChange = (event) => {
+    console.log('update name!', event.target.value)
+    this.setState({ inputAuthor: event.target.value })
+  }
+
+  handleContentChange = (event) => {
+    console.log('update content!', event.target.value)
+    this.setState({ inputContent: event.target.value })
+  }
+
+  handleCategoryChange = (event, { value }: { value: string }) => {
+    console.log('update category!', event.target, ' and ', value)
+    this.setState({ inputCategory: value })
+  }
+
+  handleTitleChange = (event) => {
+    console.log('update content!', event.target.value)
+    this.setState({ inputTitle: event.target.value })
+  }
+
   onPostSubmit = (event, { value }: { value: string }) => {
-    console.log('toggle form!')
+    const { inputCategory, inputContent, inputAuthor, inputTitle } = this.state
+
+    // validate these fields?
+    const postInfo = {
+      id: 0,
+      timestamp: Date.now(), 
+      title: inputTitle, 
+      body: inputContent, 
+      author: inputAuthor,   
+      category: inputCategory,
+    }
+
+    console.log('submit form!', postInfo)
   }
 
   toggleFormOpen = () => {
-    console.log('toggle form!')
     this.setState(state => ({ showForm: ! state.showForm }))
   }
 
   render() {
     const { categories } = this.props
-    const { showForm } = this.state
+    const {
+      inputCategory,
+      inputContent,
+      inputAuthor,
+      inputTitle,
+      showForm
+    } = this.state
    
     const headerText = showForm ? 'Write!' : 'Write?'
     const formStyles = {
@@ -63,14 +109,18 @@ class PostWriter extends Component<Props, State> {
         <Form style={formStyles} onSubmit={this.onPostSubmit}>
           <Divider />
           <Form.Field>
-            <Select placeholder='Post this in' options={postCategories} />
+            <Select placeholder='Post this in' options={postCategories} value={inputCategory} onChange={this.handleCategoryChange} />
           </Form.Field>
           <Form.Field>
             <label>Post author</label>
-            <input placeholder='I am Anon' />
+            <input placeholder='I am Anon' value={inputAuthor} onChange={this.handleAuthorChange} />
           </Form.Field>
           <Form.Field>
-            <Form.TextArea label='Post content' placeholder='Hello friends...' />
+            <label>Post title</label>
+            <input placeholder='I am Anon' value={inputTitle} onChange={this.handleTitleChange} />
+          </Form.Field>
+          <Form.Field>
+            <Form.TextArea label='Post content' placeholder='Hello friends...' value={inputContent} onChange={this.handleContentChange} />
           </Form.Field>
           <Button type='submit'>Post!</Button>
         </Form>

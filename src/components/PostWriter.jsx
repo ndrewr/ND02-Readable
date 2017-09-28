@@ -18,6 +18,8 @@ import {
   Select
 } from 'semantic-ui-react'
 
+import createUUID from '../utils/createUUID'
+
 type Props = {
   categories: Array<string>,
 };
@@ -64,7 +66,7 @@ class PostWriter extends Component<Props, State> {
 
     // validate these fields?
     const postInfo = {
-      id: 0,
+      id: createUUID(),
       timestamp: Date.now(), 
       title: inputTitle, 
       body: inputContent, 

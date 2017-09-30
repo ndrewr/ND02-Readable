@@ -34,7 +34,7 @@ type State = {
   showForm: boolean,
 }
 
-class PostWriter extends Component<Props, State> {
+class PostCreator extends Component<Props, State> {
   state = {
     inputAuthor: '',
     inputContent: '',
@@ -133,4 +133,4 @@ class PostWriter extends Component<Props, State> {
   }
 }
 
-export default PostWriter
+export default PostCreator

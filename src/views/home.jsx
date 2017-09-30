@@ -20,7 +20,7 @@ import {
 } from 'semantic-ui-react'
 
 import ListDisplayControls from '../components/ListDisplayControls'
-import PostWriter from '../components/PostWriter'
+import PostCreator from '../components/PostCreator'
 
 import { setSortDirection, setSortFilter } from '../actions/listFilter'
 
@@ -91,7 +91,7 @@ class HomePage extends Component<Props> {
     return (
       <div className="home">
         <Header size="huge" textAlign="center" content="Making life more Readable!" dividing />
-        <PostWriter categories={categories} />
+        <PostCreator categories={categories} />
         <ListDisplayControls
           direction={sortDirection}
           filter={sortFilter}

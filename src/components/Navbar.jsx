@@ -17,14 +17,12 @@ const Navbar = ({categories}: NavProps) => (
         <Logo size="mini" style={{ marginRight: '1.5em' }} />
         READABLE
       </Menu.Item>
-      <Menu.Item as="a">
-        <Link to="/">Trending</Link>
+      <Menu.Item as={Link} to="/">
+        Trending
       </Menu.Item>
       {categories.map((category) =>
-        <Menu.Item key={category.name} as="span">
-          <Link to={`/category/${category.name}`}>
-            {category.name}
-          </Link>
+        <Menu.Item key={category.name} as={Link} to={`/category/${category.name}`}>
+          {category.name}
         </Menu.Item>
       )}
     </Container>

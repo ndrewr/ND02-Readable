@@ -1,7 +1,8 @@
 // @flow
 
 // posts
-export const POSTS_LOADED = 'POSTS_LOADED';  
+export const POSTS_LOADED = 'POSTS_LOADED';
+export const NEW_POST = 'NEW_POST';  
 
 // categories
 export const CATEGORIES_LOADED = 'CATEGORIES_LOADED'

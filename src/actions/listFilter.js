@@ -2,15 +2,15 @@
 
 import * as actions from '../actions/actionTypes'
 
-type ListFilter = {
-  sortDirection?: string,
-  sortFilter?: string
-}
+// type ListFilter = {
+//   sortDirection?: string,
+//   sortFilter?: string
+// }
 
-type FilterAction = {
-  type: string,
-  filter: ListFilter
-};
+// type FilterAction = {
+//   type: string,
+//   filter: ListFilter
+// };
 
 export function setSortDirection (selectedDirection: string) {
   return {

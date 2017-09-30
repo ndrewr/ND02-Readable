@@ -8,7 +8,7 @@ import {
   Divider,
   // Header,
   // Icon,
-  Input,
+  // Input,
   // Label,
   // List,
   // Visibility,
@@ -19,6 +19,8 @@ import {
 } from 'semantic-ui-react'
 
 import createUUID from '../utils/createUUID'
+
+import readableApi from '../utils/readableApi' 
 
 type Props = {
   categories: Array<string>,
@@ -42,12 +44,10 @@ class PostWriter extends Component<Props, State> {
   }
 
   handleAuthorChange = (event) => {
-    console.log('update name!', event.target.value)
     this.setState({ inputAuthor: event.target.value })
   }
 
   handleContentChange = (event) => {
-    console.log('update content!', event.target.value)
     this.setState({ inputContent: event.target.value })
   }
 
@@ -57,7 +57,6 @@ class PostWriter extends Component<Props, State> {
   }
 
   handleTitleChange = (event) => {
-    console.log('update content!', event.target.value)
     this.setState({ inputTitle: event.target.value })
   }
 
@@ -65,6 +64,7 @@ class PostWriter extends Component<Props, State> {
     const { inputCategory, inputContent, inputAuthor, inputTitle } = this.state
 
     // validate these fields?
+    // ensure unique ID?
     const postInfo = {
       id: createUUID(),
       timestamp: Date.now(), 
@@ -75,6 +75,8 @@ class PostWriter extends Component<Props, State> {
     }
 
     console.log('submit form!', postInfo)
+
+    readableApi.createNewPost(postInfo)
   }
 
   toggleFormOpen = () => {

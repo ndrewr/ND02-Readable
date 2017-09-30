@@ -17,7 +17,7 @@ injectStyles(spinAnimation)
 
 type LogoProps = {
   size: any,
-  spin: false,
+  spin?: false,
   style: any // css style object
 };
 

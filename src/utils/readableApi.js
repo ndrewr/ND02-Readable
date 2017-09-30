@@ -2,16 +2,19 @@
 
 class ReadableApi {  
   static rootURL = 'http://localhost:5001/' // TODO: dev vs deployment?
+  static defaultOptions = {
+    headers: { 'Authorization': 'whatever-you-want' }
+  }
 
   static getPosts() {
     const url = this.rootURL + 'posts'
     return fetch(
       url,
       {
-          headers: { 'Authorization': 'whatever-you-want' }
+        ...this.defaultOptions,
       }
-    )
-    .then((results) => {
+    ).then(
+    (results) => {
       return results.json()
     })
     // .then((data) => {
@@ -22,11 +25,31 @@ class ReadableApi {
       console.log('There was a problem. ', error)
       return []
     })
-    // return fetch('http://localhost:5000/api/v1/cats').then(response => {
-    //   return response.json();
-    // }).catch(error => {
-    //   return error;
-    // });
+  }
+
+  static createNewPost(options) {
+    var requestOptions = {
+      method: 'POST',
+      body: JSON.stringify(options),
+      headers: {
+        'Authorization': 'whatever-you-want',
+        "Content-Type": "application/json"
+      },
+    };
+
+    const url = this.rootURL + 'posts'
+
+    fetch(
+      url,
+      requestOptions
+    ).then(
+    (response) => {
+      return response.json();
+    }).then(
+    (data) => {
+      console.log('Created Post:', data);
+    })
+    .catch(error => console.log('post error!', error))
   }
 
   static getCategories() {
@@ -34,10 +57,10 @@ class ReadableApi {
     return fetch(
       url,
       {
-          headers: { 'Authorization': 'whatever-you-want' }
+        ...this.defaultOptions
       }
-    )
-    .then((results) => {
+    ).then(
+    (results) => {
       return results.json()
     })
     // .then((data) => {

@@ -21,7 +21,7 @@ const Navbar = ({categories}: NavProps) => (
         <Link to="/">Trending</Link>
       </Menu.Item>
       {categories.map((category) =>
-        <Menu.Item key={category.name} as="a">
+        <Menu.Item key={category.name} as="span">
           <Link to={`/category/${category.name}`}>
             {category.name}
           </Link>

@@ -39,15 +39,17 @@ class ReadableApi {
 
     const url = this.rootURL + 'posts'
 
-    fetch(
+    return fetch(
       url,
       requestOptions
     ).then(
     (response) => {
       return response.json();
-    }).then(
+    })
+    .then(
     (data) => {
       console.log('Created Post:', data);
+      return data
     })
     .catch(error => console.log('post error!', error))
   }

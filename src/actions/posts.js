@@ -6,7 +6,8 @@ import * as actions from '../actions/actionTypes'
 
 type PostAction = {
   type: String,
-  posts: Array<String>
+  posts?: Array<any>,
+  postData?: any,
 };
 
 type PostFields = {
@@ -19,7 +20,7 @@ type PostFields = {
 }
 
 export function loadPosts() {  
-  return function (dispatch: (action: PostAction) => void) {
+  return (dispatch: (action: PostAction) => void) => {
     return readableApi.getPosts()
     .then(posts => {
       dispatch(loadPostsSuccess(posts))
@@ -30,16 +31,24 @@ export function loadPosts() {
   };
 }
 
-export function loadPostsSuccess(posts: Array<String>): PostAction {
-  return ({
+export function loadPostsSuccess(posts: Array<any>): PostAction {
+  return {
     type: actions.POSTS_LOADED,
-    posts,
-  })
+    posts: posts,
+  }
 }
 
 export function newPost(postData: PostFields) {
-  return ({
-    type: actions.NEW_POST,
-    postData,
-  })
+  console.log(readableApi)
+  return function (dispatch: (action: PostAction) => void) {
+    return readableApi.createNewPost(postData)
+      // .then(() => console.log('donezo'))
+      .then(post => {
+        console.log('Successfully Created Post? ...', post);
+        dispatch({
+          type: actions.NEW_POST,
+          postData: post,
+        })
+      })
+  }
 }

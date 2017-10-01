@@ -1,6 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import {
   Button,
@@ -10,7 +11,6 @@ import {
   // Icon,
   // Input,
   // Label,
-  // List,
   // Visibility,
   Form,
   // Radio,
@@ -22,8 +22,11 @@ import createUUID from '../utils/createUUID'
 
 import readableApi from '../utils/readableApi' 
 
+import { newPost } from '../actions/posts'
+
 type Props = {
   categories: Array<string>,
+  createPost: (any) => mixed,
 };
 
 type State = {
@@ -63,9 +66,11 @@ class PostCreator extends Component<Props, State> {
   onPostSubmit = (event, { value }: { value: string }) => {
     const { inputCategory, inputContent, inputAuthor, inputTitle } = this.state
 
+    const { createPost } = this.props
+
     // validate these fields?
     // ensure unique ID?
-    const postInfo = {
+    const postFields = {
       id: createUUID(),
       timestamp: Date.now(), 
       title: inputTitle, 
@@ -74,9 +79,11 @@ class PostCreator extends Component<Props, State> {
       category: inputCategory,
     }
 
-    console.log('submit form!', postInfo)
+    console.log('submit form!', postFields)
 
-    readableApi.createNewPost(postInfo)
+    // readableApi.createNewPost(postFields)
+
+    createPost(postFields)
   }
 
   toggleFormOpen = () => {
@@ -133,4 +140,21 @@ class PostCreator extends Component<Props, State> {
   }
 }
 
-export default PostCreator
+const mapStateToProps = (state) => {
+  // console.log('home page...', state)
+  return ({
+    categories: state.categories.map(category => category.name),
+    // posts: state.posts || [],
+    // sortDirection: state.listFilter.sortDirection,
+    // sortFilter: state.listFilter.sortFilter,
+  });
+}
+
+const mapDispatchToProps = dispatch => ({
+  // setFilter: (selectedFilter) => dispatch(setSortFilter(selectedFilter)),
+  // setDirection: (selectedDirection) => dispatch(setSortDirection(selectedDirection))
+  createPost: (postData) => dispatch(newPost(postData))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostCreator)
+// export default PostCreator

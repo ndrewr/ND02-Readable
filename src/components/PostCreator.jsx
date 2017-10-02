@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 import {
   Button,
   // Container,
@@ -20,16 +19,14 @@ import {
 
 import createUUID from '../utils/createUUID'
 
-import readableApi from '../utils/readableApi' 
-
 import { newPost } from '../actions/posts'
 
-type Props = {
+type PostCreatorProps = {
   categories: Array<string>,
   createPost: (any) => mixed,
 };
 
-type State = {
+type PostCreatorState = {
   inputAuthor: string,
   inputContent: string,
   inputCategory: string,
@@ -37,7 +34,7 @@ type State = {
   showForm: boolean,
 }
 
-class PostCreator extends Component<Props, State> {
+class PostCreator extends Component<PostCreatorProps, PostCreatorState> {
   state = {
     inputAuthor: '',
     inputContent: '',
@@ -55,7 +52,6 @@ class PostCreator extends Component<Props, State> {
   }
 
   handleCategoryChange = (event, { value }: { value: string }) => {
-    console.log('update category!', event.target, ' and ', value)
     this.setState({ inputCategory: value })
   }
 
@@ -64,9 +60,8 @@ class PostCreator extends Component<Props, State> {
   }
 
   onPostSubmit = (event, { value }: { value: string }) => {
-    const { inputCategory, inputContent, inputAuthor, inputTitle } = this.state
-
     const { createPost } = this.props
+    const { inputCategory, inputContent, inputAuthor, inputTitle } = this.state
 
     // validate these fields?
     // ensure unique ID?
@@ -81,9 +76,15 @@ class PostCreator extends Component<Props, State> {
 
     console.log('submit form!', postFields)
 
-    // readableApi.createNewPost(postFields)
-
     createPost(postFields)
+
+    this.setState({
+      inputAuthor: '',
+      inputContent: '',
+      inputCategory: 'udacity',
+      inputTitle: '',
+      showForm: false,
+    })
   }
 
   toggleFormOpen = () => {
@@ -140,21 +141,12 @@ class PostCreator extends Component<Props, State> {
   }
 }
 
-const mapStateToProps = (state) => {
-  // console.log('home page...', state)
-  return ({
-    categories: state.categories.map(category => category.name),
-    // posts: state.posts || [],
-    // sortDirection: state.listFilter.sortDirection,
-    // sortFilter: state.listFilter.sortFilter,
-  });
-}
+const mapStateToProps = (state) => ({
+  categories: state.categories.map(category => category.name),
+})
 
 const mapDispatchToProps = dispatch => ({
-  // setFilter: (selectedFilter) => dispatch(setSortFilter(selectedFilter)),
-  // setDirection: (selectedDirection) => dispatch(setSortDirection(selectedDirection))
   createPost: (postData) => dispatch(newPost(postData))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostCreator)
-// export default PostCreator

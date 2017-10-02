@@ -2,77 +2,61 @@
 
 class ReadableApi {  
   static rootURL = 'http://localhost:5001/' // TODO: dev vs deployment?
-  static defaultOptions = {
-    headers: { 'Authorization': 'whatever-you-want' }
+  static defaultHeaders = {
+    'Authorization': 'whatever-you-want'
+  }
+
+  static errorHandler(error: any) {
+    console.log('There was a problem. ', error)
   }
 
   static getPosts() {
-    const url = this.rootURL + 'posts'
     return fetch(
-      url,
+      this.rootURL + 'posts',
       {
-        ...this.defaultOptions,
+        headers: {
+          ...this.defaultHeaders,
+        }
       }
-    ).then(
-    (results) => {
-      return results.json()
-    })
-    // .then((data) => {
-    //   console.log('fetching posts...', data)
-    //   return data
-    // })
-    .catch((error) => {
-      console.log('There was a problem. ', error)
-      return []
-    })
+    )
+    .then(results => results.json())
+    .catch(this.errorHandler)
   }
 
-  static createNewPost(options) {
-    var requestOptions = {
+  static createNewPost(postFields) {
+    const requestOptions = {
       method: 'POST',
-      body: JSON.stringify(options),
+      body: JSON.stringify(postFields),
       headers: {
-        'Authorization': 'whatever-you-want',
+        ...this.defaultHeaders,
         "Content-Type": "application/json"
       },
-    };
-
-    const url = this.rootURL + 'posts'
+    }
 
     return fetch(
-      url,
+      this.rootURL + 'posts',
       requestOptions
-    ).then(
-    (response) => {
-      return response.json();
-    })
+    )
+    .then(response => response.json())
     .then(
     (data) => {
       console.log('Created Post:', data);
       return data
     })
-    .catch(error => console.log('post error!', error))
+    .catch(this.errorHandler)
   }
 
   static getCategories() {
-    const url = this.rootURL + 'categories'
     return fetch(
-      url,
+      this.rootURL + 'categories',
       {
-        ...this.defaultOptions
+        headers: {
+          ...this.defaultHeaders,
+        }
       }
-    ).then(
-    (results) => {
-      return results.json()
-    })
-    // .then((data) => {
-    //   console.log('fetching categories...', data)
-    //   // this.setState({cats: data.categories})
-    // })
-    .catch((error) => {
-      console.log('There was a problem. ', error)
-      return {categories: []}
-    })
+    )
+    .then((results) => results.json())
+    .catch(this.errorHandler)
   }
 }
 

@@ -107,7 +107,7 @@ class HomePage extends Component<Props> {
 }
 
 const mapStateToProps = (state, props) => {
-  // console.log('home page...', state)
+  console.log('home page...', state)
   return ({
     posts: state.posts || [],
     sortDirection: state.listFilter.sortDirection,

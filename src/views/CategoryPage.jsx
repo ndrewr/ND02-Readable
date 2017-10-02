@@ -5,18 +5,9 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import {
-  // Button,
-  // Container,
-  // Divider,
-  // Grid,
   Header,
-  // Icon,
-  // Image,
   List,
-  // Menu,
-  // Segment,
   Statistic,
-  // Visibility,
 } from 'semantic-ui-react'
 
 import ListDisplayControls from '../components/ListDisplayControls'
@@ -33,7 +24,7 @@ type Props = {
   setDirection: () => mixed
 };
 
-class HomePage extends Component<Props> {
+class CategoryPage extends Component<Props> {
   sortedList = () => {
     const { posts, sortFilter, sortDirection } = this.props
 
@@ -122,4 +113,4 @@ const mapDispatchToProps = dispatch => ({
   setDirection: (selectedDirection) => dispatch(setSortDirection(selectedDirection))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage)
+export default connect(mapStateToProps, mapDispatchToProps)(CategoryPage)

@@ -38,11 +38,6 @@ class ReadableApi {
       requestOptions
     )
     .then(response => response.json())
-    .then(
-    (data) => {
-      console.log('Created Post:', data);
-      return data
-    })
     .catch(this.errorHandler)
   }
 
@@ -55,7 +50,7 @@ class ReadableApi {
         }
       }
     )
-    .then((results) => results.json())
+    .then(results => results.json())
     .catch(this.errorHandler)
   }
 }

@@ -12,7 +12,7 @@ const postsReducer = (
   state: Array<any> = [],
   action: PostAction,
 ) => {
-  console.log('Posts: incoming action...', action)
+  // console.log('Posts: incoming action...', action)
   switch (action.type) {
     case actions.POSTS_LOADED:
       return action.posts

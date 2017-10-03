@@ -2,13 +2,12 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-// import { Route } from 'react-router-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Provider } from 'react-redux'
 
 import AppLayout from '../components/AppLayout'
 
-// import CategoryPage from '../views/CategoryPage'
+import CategoryPage from '../views/CategoryPage'
 import HomePage from '../views/HomePage'
 
 type AppProps = {
@@ -22,19 +21,18 @@ const App = ({ categories, store } : AppProps) => {
   //   return (props) => <ViewComponent {...props} />
   // }
 
-  const CategoryPage = ({ match }) => {
-    console.log('render category')
-    return <h1>Category! {match.params.type}</h1>
-  }
+  // const CategoryPage = ({ match }) => {
+  //   console.log('render category')
+  //   return <h1>Category! {match.params.category_name}</h1>
+  // }
 
-  console.log('render view!')
   return (
     <Router>
       <Provider store={store}>
         <div className="App">
           <AppLayout categories={categories}>
             <Route exact path="/" component={HomePage} />
-            <Route path="/category/:type" render={CategoryPage} />
+            <Route path="/category/:category_name" render={CategoryPage} />
           </AppLayout>
         </div>
       </Provider>

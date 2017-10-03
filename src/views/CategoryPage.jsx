@@ -17,10 +17,11 @@ type PageProps = {
 
 const CategoryPage = (props: PageProps) => {
   const category = props.match.params.category_name
+
   return (
     <div className={`${category}-page`}>
       <Header size="huge" textAlign="center" content={`Now reading...${category}`} dividing />
-      <PostCreator />
+      <PostCreator selectedCategory={category} />
       <PostList category={category} />
     </div>
   );

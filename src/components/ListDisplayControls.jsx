@@ -49,33 +49,33 @@ class ListDisplayControls extends Component<Props> {
 
     return (
       <Form>
-      <Form.Group inline>
-        <Form.Field>
-          Sort by:
-        </Form.Field>
-        {options.map(option =>
-          <SelectOption
-            key={option}
-            optionName={option}
-            selectedOption={selectedOption}
-            handleChange={this.handleFilterChange}
-          />
-        )}
-        <Form.Field>
-          <Button.Group>
-            <Button active={selectedDirection === 'asc'} value="asc" onClick={this.handleDirectionChange}>
-              <Button.Content visible>
-                <Icon name='caret up'/>
-              </Button.Content>
-            </Button>
-            <Button active={selectedDirection === 'desc'} value="desc" onClick={this.handleDirectionChange}>
-              <Button.Content visible>
-                <Icon name='caret down' />
-              </Button.Content>
-            </Button>
-          </Button.Group>
-        </Form.Field>
-      </Form.Group>
+        <Form.Group inline>
+          <Form.Field>
+            Sort by:
+          </Form.Field>
+          {options.map(option =>
+            <SelectOption
+              key={option}
+              optionName={option}
+              selectedOption={selectedOption}
+              handleChange={this.handleFilterChange}
+            />
+          )}
+          <Form.Field>
+            <Button.Group>
+              <Button active={selectedDirection === 'asc'} value="asc" onClick={this.handleDirectionChange}>
+                <Button.Content visible>
+                  <Icon name='caret up'/>
+                </Button.Content>
+              </Button>
+              <Button active={selectedDirection === 'desc'} value="desc" onClick={this.handleDirectionChange}>
+                <Button.Content visible>
+                  <Icon name='caret down' />
+                </Button.Content>
+              </Button>
+            </Button.Group>
+          </Form.Field>
+        </Form.Group>
       </Form>
     )
   }

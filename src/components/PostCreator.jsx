@@ -4,15 +4,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   Button,
-  // Container,
   Divider,
-  // Header,
-  // Icon,
-  // Input,
-  // Label,
-  // Visibility,
   Form,
-  // Radio,
   Segment,
   Select
 } from 'semantic-ui-react'
@@ -24,6 +17,7 @@ import { newPost } from '../actions/posts'
 type PostCreatorProps = {
   categories: Array<string>,
   createPost: (any) => mixed,
+  selectedCategory?: string,
 };
 
 type PostCreatorState = {
@@ -38,7 +32,7 @@ class PostCreator extends Component<PostCreatorProps, PostCreatorState> {
   state = {
     inputAuthor: '',
     inputContent: '',
-    inputCategory: 'udacity',
+    inputCategory: this.props.selectedCategory || 'udacity',
     inputTitle: '',
     showForm: false,
   }
@@ -91,6 +85,12 @@ class PostCreator extends Component<PostCreatorProps, PostCreatorState> {
     this.setState(state => ({ showForm: ! state.showForm }))
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.selectedCategory !== this.state.inputCategory) {
+      this.setState({ inputCategory: nextProps.selectedCategory })
+    }
+  }
+
   render() {
     const { categories } = this.props
     const {
@@ -107,11 +107,13 @@ class PostCreator extends Component<PostCreatorProps, PostCreatorState> {
       overflowY: showForm ? 'auto' : 'hidden',
       transition: 'height .3s',
     }
-    const postCategories = categories.map((category, index) => ({
+    const postCategories = categories.map((category: string, index: number) => ({
       text: category,
       value: category,
-      key: category + index,
+      key: category + String(index),
     }));
+
+    console.log('rendering the PostCreator...', inputCategory)
 
     return (
       <Segment>

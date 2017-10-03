@@ -2,33 +2,32 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-
 import {
   // Divider,
   // Grid,
-  Header,
+  // Header,
   // Icon,
   List,
   // Segment,
-  Statistic,
+  // Statistic,
   // Visibility,
 } from 'semantic-ui-react'
 
-import ListDisplayControls from '../components/ListDisplayControls'
+import ListDisplayControls from './ListDisplayControls'
+import Post from './Post'
 
 import { setSortDirection, setSortFilter } from '../actions/listFilter'
 
-type Props = {
-  category?: String,
+type PostListProps = {
+  category?: string,
   posts: Array<any>,
-  sortDirection: String,
-  sortFilter: String,
+  sortDirection: string,
+  sortFilter: string,
   setFilter: () => mixed,
   setDirection: () => mixed
 };
 
-class PostList extends Component<Props> {
+class PostList extends Component<PostListProps> {
   sortedList = () => {
     const { posts, sortFilter, sortDirection } = this.props
 
@@ -63,37 +62,17 @@ class PostList extends Component<Props> {
   render() {
     const { sortFilter, sortDirection, setFilter, setDirection } = this.props
 
-    const Post = ({post}) => (
-        <List.Item style={{marginBottom: '1rem'}}>
-          <List.Content>
-            <Statistic floated="left" size="small" style={{width: '4rem', marginRight: '2rem'}}>
-              <Statistic.Value style={{textAlign: 'right'}}>
-                {post.voteScore}
-              </Statistic.Value>
-            </Statistic>
-            <List.Header as='a'>
-              {post.title}
-            </List.Header>
-            <Link to={`/post/${post.id}`}>
-              <List.Description>
-                posted {new Date(post.timestamp).toLocaleDateString()} by {post.author}
-              </List.Description>
-            </Link>
-          </List.Content>
-        </List.Item>
-    )
-
     return (
       <div className="post-list">
         <ListDisplayControls
           direction={sortDirection}
           filter={sortFilter}
           options={['score', 'time']}
-          onFilterChange={setFilter}
           onDirectionChange={setDirection}
+          onFilterChange={setFilter}
         />
         <List>
-          {this.sortedList().map((post) => <Post key={post.id} post={post} />)}
+          {this.sortedList().map(post => <Post key={post.id} post={post} />)}
         </List>
       </div>
     );
@@ -113,8 +92,8 @@ const mapStateToProps = (state, props) => {
 }
 
 const mapDispatchToProps = dispatch => ({
+  setDirection: (selectedDirection) => dispatch(setSortDirection(selectedDirection)),
   setFilter: (selectedFilter) => dispatch(setSortFilter(selectedFilter)),
-  setDirection: (selectedDirection) => dispatch(setSortDirection(selectedDirection))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostList)

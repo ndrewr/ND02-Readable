@@ -21,18 +21,14 @@ const App = ({ categories, store } : AppProps) => {
   //   return (props) => <ViewComponent {...props} />
   // }
 
-  // const CategoryPage = ({ match }) => {
-  //   console.log('render category')
-  //   return <h1>Category! {match.params.category_name}</h1>
-  // }
-
   return (
     <Router>
       <Provider store={store}>
         <div className="App">
           <AppLayout categories={categories}>
             <Route exact path="/" component={HomePage} />
-            <Route path="/category/:category_name" render={CategoryPage} />
+            <Route path="/category/:category_name" component={CategoryPage} />
+            <Route path="/post/:post_id" render={(props) => <h1>{`Showing Post ID#${props.match.params.post_id}`}</h1>} />
           </AppLayout>
         </div>
       </Provider>

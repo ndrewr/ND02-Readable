@@ -113,8 +113,6 @@ class PostCreator extends Component<PostCreatorProps, PostCreatorState> {
       key: category + String(index),
     }));
 
-    console.log('rendering the PostCreator...', inputCategory)
-
     return (
       <Segment>
         <Button color={showForm ? 'green' : 'orange'} onClick={this.toggleFormOpen} size="massive">

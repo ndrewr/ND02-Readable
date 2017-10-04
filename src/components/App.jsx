@@ -9,6 +9,7 @@ import AppLayout from '../components/AppLayout'
 
 import CategoryPage from '../views/CategoryPage'
 import HomePage from '../views/HomePage'
+import PostPage from '../views/PostPage'
 
 type AppProps = {
   categories: Array<string>,
@@ -28,7 +29,7 @@ const App = ({ categories, store } : AppProps) => {
           <AppLayout categories={categories}>
             <Route exact path="/" component={HomePage} />
             <Route path="/category/:category_name" component={CategoryPage} />
-            <Route path="/post/:post_id" render={(props) => <h1>{`Showing Post ID#${props.match.params.post_id}`}</h1>} />
+            <Route path="/post/:post_id" component={PostPage} />
           </AppLayout>
         </div>
       </Provider>

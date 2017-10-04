@@ -8,6 +8,20 @@ class ReadableApi {
 
   static errorHandler(error: any) {
     console.log('There was a problem. ', error)
+    throw(error)
+  }
+
+  static getPost(post_id: string) {
+    return fetch(
+      this.rootURL + 'posts/' + post_id,
+      {
+        headers: {
+          ...this.defaultHeaders,
+        }
+      }
+    )
+    .then(results => results.json())
+    .catch(this.errorHandler)
   }
 
   static getPosts() {

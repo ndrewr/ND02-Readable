@@ -7,6 +7,7 @@ import * as actions from '../actions/actionTypes'
 type PostAction = {
   type: String,
   posts?: Array<any>,
+  post?: PostFields,
   postData?: any,
 };
 
@@ -17,6 +18,22 @@ type PostFields = {
   id: String,
   timestamp: Number,
   title: String, 
+}
+
+export function loadPost(post_id: string) {  
+  return (dispatch: (action: PostAction) => void) => {
+    return readableApi.getPost(post_id)
+    .then(post => {
+      dispatch({
+        type: actions.POST_LOADED,
+        post: post,
+      })
+    })
+    .catch(error => {
+      console.log('error!')
+      throw(error)
+    });
+  };
 }
 
 export function loadPosts() {  

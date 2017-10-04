@@ -68,8 +68,6 @@ class PostCreator extends Component<PostCreatorProps, PostCreatorState> {
       category: inputCategory,
     }
 
-    console.log('submit form!', postFields)
-
     createPost(postFields)
 
     this.setState({

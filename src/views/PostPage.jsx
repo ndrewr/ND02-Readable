@@ -7,10 +7,11 @@ import {
   // Button,
   // Container,
   // Divider,
-  // Grid,
+  Grid,
   Header,
   // Icon,
   // Image,
+  Item,
   // List,
   // Menu,
   // Segment,
@@ -47,17 +48,25 @@ const PostPage = ({ post = emptyPost }: { post: PostItem }) => {
  return (
     <div className="post-page">
       <Header size="small" textAlign="left" content={`/${post.category}`} />
-      <Header size="huge" textAlign="center" content={post.title} dividing />
-      <PostCreator selectedCategory={post.category} />
-      <p>
-        <span>submitted on {formatTime(post.timestamp)} by {post.author}</span>
-      </p>
+
+      <Grid>
+        <Grid.Row>
+          <Grid.Column width={12}>
+            <Header size="huge" content={post.title} />
+            <Header sub size="small" content={`submitted on ${formatTime(post.timestamp)} by ${post.author}`} dividing />
+          </Grid.Column>
+
+          <Grid.Column width={4} textAlign="center">
+            <Statistic size="large" value={post.voteScore} />
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+
       <p>
         {post.body}
       </p>
-      <p>
-        <Statistic size="large" value={post.voteScore} />
-      </p>
+
+      <PostCreator selectedCategory={post.category} />
     </div>
   );
 }
@@ -65,14 +74,14 @@ const PostPage = ({ post = emptyPost }: { post: PostItem }) => {
 const mapStateToProps = (state, props) => {
   console.log('render Post...', state)
   let post = emptyPost
+  // const post_id = props.match.params.post_id
 
   if (state.posts.length) {
     post = {...state.posts.find(post => post.id === props.match.params.post_id)}
     // TODO: if post doesn't exist show an error page...
   }
-  // const post_id = props.match.params.post_id
+
   return ({
-    // categories: state.categories.map(category => category.name),
     post
   })
 }

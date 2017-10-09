@@ -7,7 +7,6 @@ import {
   Divider,
   Form,
   Segment,
-  Select
 } from 'semantic-ui-react'
 
 import createUUID from '../utils/createUUID'
@@ -15,6 +14,7 @@ import createUUID from '../utils/createUUID'
 import { newPost } from '../actions/posts'
 
 type CommentCreatorProps = {
+  parentId: string,
   createComment: (any) => mixed,
 };
 
@@ -40,20 +40,21 @@ class CommentCreator extends Component<CommentCreatorProps, CommentCreatorState>
   }
 
   onPostSubmit = (event, { value }: { value: string }) => {
-    const { createComment } = this.props
+    const { parentId, createComment } = this.props
     const { inputContent, inputAuthor } = this.state
 
     // validate these fields?
     // ensure unique ID?
-    const postFields = {
+    const commentFields = {
       id: createUUID(),
-      parent_id: '',
+      parentId: parentId,
       timestamp: Date.now(), 
       body: inputContent, 
       author: inputAuthor,   
     }
 
-    createComment(postFields)
+    console.log("create the comment!")
+    createComment(commentFields)
 
     this.setState({
       inputAuthor: '',
@@ -67,7 +68,6 @@ class CommentCreator extends Component<CommentCreatorProps, CommentCreatorState>
   }
 
   render() {
-    // const { categories } = this.props
     const {
       inputContent,
       inputAuthor,
@@ -80,11 +80,6 @@ class CommentCreator extends Component<CommentCreatorProps, CommentCreatorState>
       overflowY: showForm ? 'auto' : 'hidden',
       transition: 'height .3s',
     }
-    // const postCategories = categories.map((category: string, index: number) => ({
-    //   text: category,
-    //   value: category,
-    //   key: category + String(index),
-    // }));
 
     return (
       <Segment>

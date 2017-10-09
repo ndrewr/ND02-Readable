@@ -7,7 +7,7 @@ import rootReducer from '../reducers'
 
 import { loadPosts } from '../actions/posts'
 import { loadCategories } from '../actions/categories'
-
+// import { loadComments } from '../actions/comments'
 
 
 const configureStore = () => {
@@ -31,6 +31,7 @@ const configureStore = () => {
   // fetch initial data
   store.dispatch(loadCategories())
   store.dispatch(loadPosts())
+  // store.dispatch(loadComments())
 
   return store
 }

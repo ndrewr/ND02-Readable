@@ -7,9 +7,29 @@ const defaultData = {
     id: '894tuq4ut84ut8v4t8wun89g',
     parentId: "8xf0y6ziyjabvozdd253nd",
     timestamp: 1468166872634,
-    body: 'Hi there! I am a COMMENT.',
+    body: 'Hi there! I am another COMMENT.',
     author: 'thingtwo',
     voteScore: 6,
+    deleted: false,
+    parentDeleted: false 
+  },
+  "892tur4ut45ut8v4g9wun72f": {
+    id: '892tur4ut45ut8v4g9wun72f',
+    parentId: "8xf0y6ziyjabvozdd253nd",
+    timestamp: 1468166813634,
+    body: 'Hi there! I am a COMMENT, too.',
+    author: 'thingthree',
+    voteScore: 1,
+    deleted: false,
+    parentDeleted: false 
+  },
+  "694gbe4ut84ut8v4t8wpx12v": {
+    id: '694gbe4ut84ut8v4t8wpx12v',
+    parentId: "8xf0y6ziyjabvozdd253nd",
+    timestamp: 1468165272634,
+    body: 'Hi there! I am a COMMENT.',
+    author: 'Thing',
+    voteScore: 3,
     deleted: false,
     parentDeleted: false 
   },

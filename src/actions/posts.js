@@ -4,13 +4,6 @@ import readableApi from '../utils/readableApi';
 
 import * as actions from '../actions/actionTypes'
 
-type PostAction = {
-  type: String,
-  posts?: Array<any>,
-  post?: PostFields,
-  postData?: any,
-};
-
 type PostFields = {
   author: String,
   body: String,
@@ -19,6 +12,13 @@ type PostFields = {
   timestamp: Number,
   title: String, 
 }
+
+type PostAction = {
+  type: String,
+  posts?: Array<any>,
+  post?: PostFields,
+  postData?: any,
+};
 
 export function loadPost(post_id: string) {  
   return (dispatch: (action: PostAction) => void) => {

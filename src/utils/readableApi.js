@@ -55,6 +55,27 @@ class ReadableApi {
     .catch(this.errorHandler)
   }
 
+  static async getComments(post_id: string) {
+    console.log('getting comments for post: ', post_id)
+    const response = await fetch(
+      this.rootURL + 'posts/' + post_id + '/comments' ,
+      {
+        headers: {
+          ...this.defaultHeaders,
+        }
+      }
+    )
+
+    const comments = await response.json()
+    console.log('the comments are...', comments)
+    return comments
+  }
+
+
+  static getComment(comment_id: string) {
+    console.log('getting single comment for...', comment_id)
+  }
+
   static getCategories() {
     return fetch(
       this.rootURL + 'categories',

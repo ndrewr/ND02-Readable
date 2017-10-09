@@ -18,9 +18,9 @@ type AppProps = {
 
 const App = ({ categories, store } : AppProps) => {
   // needed if passing addtl props to the View component bout to be rendered
-  // const wrapView = (ViewComponent) => {
-  //   return (props) => <ViewComponent {...props} />
-  // }
+  const wrapView = (ViewComponent) => {
+    return (props) => <ViewComponent {...props} store={store} />
+  }
 
   return (
     <Router>
@@ -29,7 +29,7 @@ const App = ({ categories, store } : AppProps) => {
           <AppLayout categories={categories}>
             <Route exact path="/" component={HomePage} />
             <Route path="/category/:category_name" component={CategoryPage} />
-            <Route path="/post/:post_id" component={PostPage} />
+            <Route path="/post/:post_id" render={wrapView(PostPage)} />
           </AppLayout>
         </div>
       </Provider>

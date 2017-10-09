@@ -4,6 +4,14 @@ import readableApi from '../utils/readableApi';
 
 import * as actions from '../actions/actionTypes'
 
+type CommentFields = {
+  author: String,
+  body: String,
+  id: String,
+  parentId: String,
+  timestamp: Number,
+}
+
 type CommentAction = {
   type: String,
   comments?: Array<any>,
@@ -11,20 +19,12 @@ type CommentAction = {
   commentData?: any,
 };
 
-type CommentFields = {
-  author: String,
-  body: String,
-  id: String,
-  parent_id: String,
-  timestamp: Number,
-}
-
-export function loadPost(comment_id: string) {  
+export function loadComment(comment_id: string) {  
   return (dispatch: (action: CommentAction) => void) => {
-    return readableApi.getPost(comment_id)
+    return readableApi.getComment(comment_id)
     .then(post => {
       dispatch({
-        type: actions.POST_LOADED,
+        type: actions.COMMENT_LOADED,
         post: post,
       })
     })
@@ -35,10 +35,13 @@ export function loadPost(comment_id: string) {
   };
 }
 
-export function loadComments() {  
+export function loadComments(post_id: string) {  
   return (dispatch: (action: CommentAction) => void) => {
-    return readableApi.getPosts()
+    console.log('fetch post comments...')
+    return readableApi.getComments(post_id)
     .then(comments => {
+      console.log('got comments...', comments)
+
       dispatch({
         type: actions.COMMENTS_LOADED,
         comments: comments,

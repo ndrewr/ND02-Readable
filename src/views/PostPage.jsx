@@ -21,7 +21,7 @@ import {
 import formatTime from '../utils/formatTime'
 
 import CommentCreator from '../components/CommentCreator'
-// import PostList from '../components/PostList'
+import CommentList from '../components/CommentList'
 
 import { loadComments } from '../actions/comments'
 
@@ -50,16 +50,16 @@ type PostPageProps = {
   post_id: string,
   comments: any,
   post: PostItem,
-  loadComments: (string) => void,
+  // loadComments: (string) => void,
 }
 
 // const PostPage = ({ comments, post = emptyPost }: { comments: any, post: PostItem }) => {
 class PostPage extends React.Component<PostPageProps> {
-  componentWillMount() {
-    const { post_id, loadComments } = this.props
+  // componentWillMount() {
+  //   const { post_id, loadComments } = this.props
 
-    loadComments(post_id)
-  }
+  //   loadComments(post_id)
+  // }
 
   render() {
     const { comments, post } = this.props
@@ -86,7 +86,9 @@ class PostPage extends React.Component<PostPageProps> {
           </p>
 
           <h1>The comments:</h1>
-          {comments.map(comment => <div key={comment.id}>{comment.id}</div>)}
+          {post.id &&
+            <CommentList post_id={post.id} />
+          }
           <hr />
 
           <CommentCreator parentId={post.id} />
@@ -117,7 +119,7 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = dispatch => ({
   // createPost: (postData) => dispatch(newPost(postData))
-  loadComments: (post_id) => dispatch(loadComments(post_id))
+  // loadComments: (post_id) => dispatch(loadComments(post_id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostPage)

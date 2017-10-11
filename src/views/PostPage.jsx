@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-// import { Link } from 'react-router-dom';
 import {
   Button,
   // Container,
@@ -22,11 +21,7 @@ import formatTime from '../utils/formatTime'
 
 import CommentCreator from '../components/CommentCreator'
 import CommentList from '../components/CommentList'
-
 import PostEditor from '../components/PostEditor'
-
-
-import { loadComments } from '../actions/comments'
 
 
 type PostItem = {
@@ -51,7 +46,6 @@ const emptyPost = {
 
 type PostPageProps = {
   post_id: string,
-  comments: any,
   post: PostItem,
   // loadComments: (string) => void,
 }
@@ -71,8 +65,7 @@ class PostPage extends React.Component<PostPageProps, PostPageState> {
   }
 
   render() {
-    const { comments, post } = this.props
-
+    const { post } = this.props
     const { editMode } = this.state
 
      return (
@@ -80,7 +73,7 @@ class PostPage extends React.Component<PostPageProps, PostPageState> {
           <Header size="small" textAlign="left" content={`/${post.category}`} />
 
           <div>
-            <Button as='button' header onClick={this.toggleEdit}>
+            <Button as='button' onClick={this.toggleEdit}>
               EDIT
             </Button>
           </div>
@@ -118,19 +111,11 @@ class PostPage extends React.Component<PostPageProps, PostPageState> {
 
 const mapStateToProps = (state, props) => {
   const post_id = props.match.params.post_id
-  let post = emptyPost
-
-  if (state.posts.length) {
-    post = {...state.posts.find(post => post.id === post_id )}
-    // TODO: if post doesn't exist show an error page...
-  }
-
-  const comments = state.comments
+  let post = state.posts[post_id] || emptyPost
 
   return ({
     post_id,
     post,
-    comments,
   })
 }
 

@@ -28,12 +28,13 @@ const postsReducer = (
   state: any = {},
   action: PostAction,
 ) => {
+  console.log('Posts action: ', action)
   switch (action.type) {
     case actions.POSTS_LOADED:
       return action.posts.reduce((postCache, post) => {
         postCache[post.id] = post
         return postCache
-      })
+      }, {})
     case actions.NEW_POST:
       return { ...state, [action.postData.id]: action.postData }
     case actions.UPDATE_POST:

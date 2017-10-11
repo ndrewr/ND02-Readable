@@ -87,7 +87,7 @@ const mapStateToProps = (state, props) => {
   const posts = props.category
     ? postList.filter(post => props.category === post.category)
     : postList
-  console.log('posts...', state.posts)
+  console.log('posts...', posts)
 
   return ({
     posts,

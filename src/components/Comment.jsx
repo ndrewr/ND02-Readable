@@ -1,20 +1,14 @@
 // @flow
 
 import React from 'react';
-// import { Link } from 'react-router-dom';
 import {
-  // Header,
-  // Icon,
   List,
-  // Segment,
   Statistic,
-  // Visibility,
 } from 'semantic-ui-react'
 
 import formatTime from '../utils/formatTime'
 
 type CommentItem = {
-  // category?: string,
   voteScore?: number,
   body?: string,
   id: string,

@@ -37,7 +37,6 @@ export function loadComment(comment_id: string) {
 
 export function loadComments(post_id: string) {  
   return (dispatch: (action: CommentAction) => void) => {
-    console.log('fetch post comments...')
     return readableApi.getComments(post_id)
     .then(comments => {
       console.log('got comments...', comments)

@@ -4,7 +4,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 // import { Link } from 'react-router-dom';
 import {
-  // Button,
+  Button,
   // Container,
   // Divider,
   Grid,
@@ -22,6 +22,9 @@ import formatTime from '../utils/formatTime'
 
 import CommentCreator from '../components/CommentCreator'
 import CommentList from '../components/CommentList'
+
+import PostEditor from '../components/PostEditor'
+
 
 import { loadComments } from '../actions/comments'
 
@@ -53,37 +56,53 @@ type PostPageProps = {
   // loadComments: (string) => void,
 }
 
-// const PostPage = ({ comments, post = emptyPost }: { comments: any, post: PostItem }) => {
-class PostPage extends React.Component<PostPageProps> {
-  // componentWillMount() {
-  //   const { post_id, loadComments } = this.props
+type PostPageState = {
+  editMode: boolean,
+}
 
-  //   loadComments(post_id)
-  // }
+// const PostPage = ({ comments, post = emptyPost }: { comments: any, post: PostItem }) => {
+class PostPage extends React.Component<PostPageProps, PostPageState> {
+  state = {
+    editMode: false,
+  }
+
+  toggleEdit = (event) => {
+    this.setState(state => ({ editMode: ! state.editMode }))
+  }
 
   render() {
     const { comments, post } = this.props
+
+    const { editMode } = this.state
 
      return (
         <div className="post-page">
           <Header size="small" textAlign="left" content={`/${post.category}`} />
 
-          <Grid>
-            <Grid.Row>
-              <Grid.Column width={12}>
-                <Header size="huge" content={post.title} />
-                <Header sub size="small" content={`submitted on ${formatTime(post.timestamp)} by ${post.author}`} dividing />
-              </Grid.Column>
+          <div>
+            <Button as='button' header onClick={this.toggleEdit}>
+              EDIT
+            </Button>
+          </div>
+          {editMode
+            ? <PostEditor post={post} selectedCategory={post.category} />
+            : <Grid>
+                <Grid.Row>
+                  <Grid.Column width={12}>
+                    <Header size="huge" content={post.title} />
+                    <Header sub size="small" content={`submitted on ${formatTime(post.timestamp)} by ${post.author}`} dividing />
+                  </Grid.Column>
 
-              <Grid.Column width={4} textAlign="center">
-                <Statistic size="large" value={post.voteScore} />
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-
-          <p>
-            {post.body}
-          </p>
+                  <Grid.Column width={4} textAlign="center">
+                    <Statistic size="large" value={post.voteScore} />
+                  </Grid.Column>
+                </Grid.Row>
+             
+                <p>
+                  {post.body}
+                </p>
+              </Grid>
+          }
 
           <h1>The comments:</h1>
           {post.id &&
@@ -107,8 +126,6 @@ const mapStateToProps = (state, props) => {
   }
 
   const comments = state.comments
-
-  console.log('post page...', state, post)
 
   return ({
     post_id,

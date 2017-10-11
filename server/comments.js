@@ -16,7 +16,7 @@ const defaultData = {
   "892tur4ut45ut8v4g9wun72f": {
     id: '892tur4ut45ut8v4g9wun72f',
     parentId: "8xf0y6ziyjabvozdd253nd",
-    timestamp: 1468166813634,
+    timestamp: 146276813634,
     body: 'Hi there! I am a COMMENT, too.',
     author: 'thingthree',
     voteScore: 1,

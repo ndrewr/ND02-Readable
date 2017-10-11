@@ -55,6 +55,30 @@ class ReadableApi {
     .catch(this.errorHandler)
   }
 
+  static updatePost(post_id, postFields) {
+    console.log('update fields...', postFields, post_id)
+    const requestOptions = {
+      method: 'PUT',
+      body: JSON.stringify(postFields),
+      headers: {
+        ...this.defaultHeaders,
+        "Content-Type": "application/json"
+      },
+    }
+
+    return fetch(
+      this.rootURL + 'posts/' + post_id,
+      requestOptions
+    )
+    // .then(response => response.json())
+    .then(response => {
+      // response.json()
+      console.log('response!...', response)
+      return response.json()
+    })
+    .catch(this.errorHandler)
+  }
+
   static async getComments(post_id: string) {
     console.log('getting comments for post: ', post_id)
     const response = await fetch(

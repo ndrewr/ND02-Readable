@@ -183,7 +183,7 @@ app.get('/posts/:id', (req, res) => {
       .then(
           (data) => res.send(data),
           (error) => {
-              console.error(error)
+              console.error('updating post...', error)
               res.status(500).send({
                   error: 'There was an error.'
               })
@@ -213,7 +213,7 @@ app.post('/posts/:id', bodyParser.json(), (req, res) => {
     const id = req.params.id
     posts.vote(req.token, id, option)
       .then(
-          (data) => res.send(data),
+          // (data) => res.send(data),
           (error) => {
               console.error(error)
               res.status(500).send({

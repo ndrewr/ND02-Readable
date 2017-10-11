@@ -67,3 +67,20 @@ export function newPost(postData: PostFields) {
     });
   }
 }
+
+export function updatePost(post_id: string, postData: { title: string, body: string }) {
+  return function (dispatch: (action: PostAction) => void) {
+    return readableApi.updatePost(post_id, postData)
+    .then(post => {
+      console.log('post updated...', post)
+      dispatch({
+        type: actions.UPDATE_POST,
+        postData: post,
+      })
+    })
+    .catch(error => {
+      console.log('error!')
+      throw(error)
+    });
+  }
+}

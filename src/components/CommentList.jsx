@@ -4,13 +4,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   // Divider,
-  // Grid,
   // Header,
   // Icon,
   List,
-  // Segment,
   // Statistic,
-  // Visibility,
 } from 'semantic-ui-react'
 
 import ListDisplayControls from './ListDisplayControls'
@@ -21,7 +18,6 @@ import { setSortDirection, setSortFilter } from '../actions/listFilter'
 import { loadComments } from '../actions/comments'
 
 type CommentListProps = {
-  // category?: string,
   post_id: string,
   comments: Array<any>,
   loadComments: (string) => void,
@@ -34,7 +30,6 @@ type CommentListProps = {
 class CommentList extends Component<CommentListProps> {
   componentWillMount() {
     const { post_id, loadComments } = this.props
-
     loadComments(post_id)
   }
 
@@ -90,7 +85,6 @@ class CommentList extends Component<CommentListProps> {
 }
 
 const mapStateToProps = (state, props) => {
-  console.log('commentList...', state, props)
   const comments = props.post_id
     ? state.comments.filter(comment => props.post_id === comment.parentId)
     : state.comments
@@ -104,7 +98,6 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = dispatch => ({
   loadComments: (post_id) => dispatch(loadComments(post_id)),
-
   setDirection: (selectedDirection) => dispatch(setSortDirection(selectedDirection)),
   setFilter: (selectedFilter) => dispatch(setSortFilter(selectedFilter)),
 });

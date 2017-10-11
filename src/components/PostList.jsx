@@ -80,14 +80,10 @@ class PostList extends Component<PostListProps> {
 }
 
 const mapStateToProps = (state, props) => {
-  // const posts = props.category
-  //   ? state.posts.filter(post => props.category === post.category)
-  //   : state.posts
   const postList = Object.keys(state.posts).map(post_id => state.posts[post_id])
   const posts = props.category
     ? postList.filter(post => props.category === post.category)
     : postList
-  console.log('posts...', posts)
 
   return ({
     posts,

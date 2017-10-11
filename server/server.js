@@ -183,7 +183,6 @@ app.get('/posts/:id', (req, res) => {
       .then(
           (data) => res.send(data),
           (error) => {
-              console.error('updating post...', error)
               res.status(500).send({
                   error: 'There was an error.'
               })

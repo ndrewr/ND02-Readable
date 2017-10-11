@@ -16,8 +16,9 @@ import { updatePost } from '../actions/posts'
 
 type PostCreatorProps = {
   post: any,
-  updatePost: (any) => mixed,
   selectedCategory: string,
+  onSubmit: () => void,
+  updatePost: (any) => mixed,
 };
 
 type PostCreatorState = {
@@ -44,7 +45,7 @@ class PostCreator extends Component<PostCreatorProps, PostCreatorState> {
   }
 
   onPostSubmit = (event, { value }: { value: string }) => {
-    const { post, selectedCategory, updatePost } = this.props
+    const { post, selectedCategory, onSubmit, updatePost } = this.props
     const { inputContent, inputTitle } = this.state
 
     // validate these fields?
@@ -55,6 +56,8 @@ class PostCreator extends Component<PostCreatorProps, PostCreatorState> {
     }
 
     updatePost(post.id, postFields)
+
+    onSubmit()
 
     this.setState({
       inputContent: '',
@@ -85,7 +88,7 @@ class PostCreator extends Component<PostCreatorProps, PostCreatorState> {
           <Form.Field>
             <Form.TextArea label='Post content' placeholder='Hello friends...' value={inputContent} onChange={this.handleContentChange} />
           </Form.Field>
-          <Button type='submit'>Post!</Button>
+          <Button type='submit'>Update!</Button>
         </Form>
       </div>
     )

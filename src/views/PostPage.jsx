@@ -23,6 +23,7 @@ import CommentCreator from '../components/CommentCreator'
 import CommentList from '../components/CommentList'
 import PostEditor from '../components/PostEditor'
 
+import { deletePost } from '../actions/posts'
 
 type PostItem = {
   body: string,
@@ -60,6 +61,13 @@ class PostPage extends React.Component<PostPageProps, PostPageState> {
     editMode: false,
   }
 
+  deletePost = () => {
+    console.log('delete!')
+    this.props.deletePost(this.props.post_id)
+
+    // redirect back to previous page...
+  }
+
   toggleEdit = (event) => {
     this.setState(state => ({ editMode: ! state.editMode }))
   }
@@ -76,9 +84,12 @@ class PostPage extends React.Component<PostPageProps, PostPageState> {
             <Button as='button' onClick={this.toggleEdit}>
               EDIT
             </Button>
+            <Button as='button' onClick={this.deletePost}>
+              DELETE
+            </Button>            
           </div>
           {editMode
-            ? <PostEditor post={post} selectedCategory={post.category} />
+            ? <PostEditor post={post} selectedCategory={post.category} onSubmit={this.toggleEdit} />
             : <Grid>
                 <Grid.Row>
                   <Grid.Column width={12}>
@@ -122,6 +133,7 @@ const mapStateToProps = (state, props) => {
 const mapDispatchToProps = dispatch => ({
   // createPost: (postData) => dispatch(newPost(postData))
   // loadComments: (post_id) => dispatch(loadComments(post_id))
+  deletePost: (post_id) => dispatch(deletePost(post_id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostPage)

@@ -5,19 +5,20 @@ import readableApi from '../utils/readableApi';
 import * as actions from '../actions/actionTypes'
 
 type PostFields = {
-  author: String,
-  body: String,
-  category: String,
-  id: String,
-  timestamp: Number,
-  title: String, 
+  author: string,
+  body: string,
+  category: string,
+  id: string,
+  timestamp: number,
+  title: string, 
 }
 
 type PostAction = {
-  type: String,
+  type: string,
   posts?: Array<any>,
   post?: PostFields,
   postData?: any,
+  deletedPostId: string,
 };
 
 export function loadPost(post_id: string) {  
@@ -72,10 +73,26 @@ export function updatePost(post_id: string, postData: { title: string, body: str
   return function (dispatch: (action: PostAction) => void) {
     return readableApi.updatePost(post_id, postData)
     .then(post => {
-      console.log('post updated...', post)
       dispatch({
         type: actions.UPDATE_POST,
         postData: post,
+      })
+    })
+    .catch(error => {
+      console.log('error!')
+      throw(error)
+    });
+  }
+}
+
+export function deletePost(post_id: string) {
+  return function (dispatch: (action: PostAction) => void) {
+    return readableApi.deletePost(post_id)
+    .then(result => {
+      console.log('post deleted! ', post_id, result)
+      dispatch({
+        type: actions.DELETE_POST,
+        deletedPostId: post_id,
       })
     })
     .catch(error => {

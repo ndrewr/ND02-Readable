@@ -56,7 +56,6 @@ class ReadableApi {
   }
 
   static updatePost(post_id, postFields) {
-    console.log('update fields...', postFields, post_id)
     const requestOptions = {
       method: 'PUT',
       body: JSON.stringify(postFields),
@@ -70,17 +69,36 @@ class ReadableApi {
       this.rootURL + 'posts/' + post_id,
       requestOptions
     )
+    .then(response => response.json())
+    .catch(this.errorHandler)
+  }
+
+  static deletePost(post_id) {
+    console.log('deleting post...', post_id)
+    
+    const requestOptions = {
+      method: 'DELETE',
+      // body: JSON.stringify(postFields),
+      headers: {
+        ...this.defaultHeaders,
+        // "Content-Type": "application/json"
+      },
+    }
+
+    return fetch(
+      this.rootURL + 'posts/' + post_id,
+      requestOptions
+    )
     // .then(response => response.json())
     .then(response => {
+      console.log('deleted! ', response)
       // response.json()
-      console.log('response!...', response)
-      return response.json()
     })
     .catch(this.errorHandler)
   }
 
   static async getComments(post_id: string) {
-    console.log('getting comments for post: ', post_id)
+    // console.log('getting comments for post: ', post_id)
     const response = await fetch(
       this.rootURL + 'posts/' + post_id + '/comments' ,
       {
@@ -91,7 +109,7 @@ class ReadableApi {
     )
 
     const comments = await response.json()
-    console.log('the comments are...', comments)
+    // console.log('the comments are...', comments)
     return comments
   }
 

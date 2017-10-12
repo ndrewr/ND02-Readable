@@ -2,19 +2,13 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom'
 import {
   Button,
-  // Container,
-  // Divider,
   Grid,
   Header,
   // Icon,
-  // Image,
-  // List,
-  // Menu,
-  // Segment,
   Statistic,
-  // Visibility,
 } from 'semantic-ui-react'
 
 import formatTime from '../utils/formatTime'
@@ -46,9 +40,10 @@ const emptyPost = {
 }
 
 type PostPageProps = {
+  history: any,
   post_id: string,
   post: PostItem,
-  // loadComments: (string) => void,
+  deletePost: (string) => void,
 }
 
 type PostPageState = {
@@ -62,10 +57,9 @@ class PostPage extends React.Component<PostPageProps, PostPageState> {
   }
 
   deletePost = () => {
-    console.log('delete!')
-    this.props.deletePost(this.props.post_id)
-
-    // redirect back to previous page...
+    const { post_id, history } = this.props
+    this.props.deletePost(post_id)
+    history.goBack()
   }
 
   toggleEdit = (event) => {
@@ -131,10 +125,7 @@ const mapStateToProps = (state, props) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  // createPost: (postData) => dispatch(newPost(postData))
-  // loadComments: (post_id) => dispatch(loadComments(post_id))
   deletePost: (post_id) => dispatch(deletePost(post_id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostPage)
-// export default PostPage

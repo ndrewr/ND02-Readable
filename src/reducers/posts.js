@@ -26,6 +26,8 @@ const postsReducer = (
       return { ...state, [action.postData.id]: action.postData }
     case actions.UPDATE_POST:
       return { ...state, [action.postData.id]: action.postData }
+    case actions.UPDATE_SCORE:
+      return { ...state, [action.postData.id]: action.postData } // TODO
     case actions.DELETE_POST:
       return Object.keys(state).reduce((postCache, post_id) => {
         if (action.deletedPostId !== post_id) {

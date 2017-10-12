@@ -85,6 +85,24 @@ export function updatePost(post_id: string, postData: { title: string, body: str
   }
 }
 
+export function updateScore(post_id: string, updateType: string) {
+  return function (dispatch: (action: PostAction) => void) {
+    return readableApi.updatePostScore(post_id, updateType)
+    .then(post => {
+      console.log('post updated...', post_id, post)
+      // dispatch({
+      //   type: actions.UPDATE_SCORE,
+      //   postData: post,
+      // })
+    })
+    .catch(error => {
+      console.log('error!')
+      throw(error)
+    });
+  }
+}
+
+
 export function deletePost(post_id: string) {
   return function (dispatch: (action: PostAction) => void) {
     return readableApi.deletePost(post_id)

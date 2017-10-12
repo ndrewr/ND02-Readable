@@ -16,6 +16,8 @@ import CommentCreator from '../components/CommentCreator'
 import CommentList from '../components/CommentList'
 import PostEditor from '../components/PostEditor'
 
+import ScoreDisplay from '../components/ScoreDisplay'
+
 import { deletePost } from '../actions/posts'
 
 type PostItem = {
@@ -65,10 +67,18 @@ class PostPage extends React.Component<PostPageProps, PostPageState> {
     this.setState(state => ({ editMode: ! state.editMode }))
   }
 
+  updateScore = (event) => {
+    console.log('update the score...', event.target)
+    document.activeElement && document.activeElement.blur()
+
+    // dispatch vote score update
+  }
+
   render() {
     const { post } = this.props
     const { editMode } = this.state
 
+                    // <Statistic size="large" value={post.voteScore} />
      return (
         <div className="post-page">
           <Header size="small" textAlign="left" content={`/${post.category}`} />
@@ -91,7 +101,7 @@ class PostPage extends React.Component<PostPageProps, PostPageState> {
                   </Grid.Column>
 
                   <Grid.Column width={4} textAlign="center">
-                    <Statistic size="large" value={post.voteScore} />
+                  <ScoreDisplay score={post.voteScore} updateScore={this.updateScore} />
                   </Grid.Column>
                 </Grid.Row>
              

@@ -73,6 +73,25 @@ class ReadableApi {
     .catch(this.errorHandler)
   }
 
+//TODO
+  static updatePostScore(post_id, postFields) {
+    const requestOptions = {
+      method: 'PUT',
+      body: JSON.stringify(postFields),
+      headers: {
+        ...this.defaultHeaders,
+        "Content-Type": "application/json"
+      },
+    }
+
+    return fetch(
+      this.rootURL + 'posts/' + post_id,
+      requestOptions
+    )
+    .then(response => response.json())
+    .catch(this.errorHandler)
+  }
+
   static deletePost(post_id) {
     console.log('deleting post...', post_id)
 

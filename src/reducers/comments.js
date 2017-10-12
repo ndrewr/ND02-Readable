@@ -9,17 +9,33 @@ type CommentAction = {
 };
 
 const commentsReducer = (
-  state: Array<any> = [],
+  state: any = {},
   action: CommentAction,
 ) => {
   switch (action.type) {
     case actions.COMMENTS_LOADED:
-      return action.comments
-    case actions.NEW_POST:
-      return [...state, action.commentData]
+      return action.comments.reduce((commentCache, comment) => {
+        commentCache[comment.id] = comment
+        return commentCache
+      }, {})
+    case actions.NEW_COMMENT:
+      return { ...state, [action.commentData.id]: action.commentData }
     default:
       return state
   }
 }
+// const commentsReducer = (
+//   state: Array<any> = [],
+//   action: CommentAction,
+// ) => {
+//   switch (action.type) {
+//     case actions.COMMENTS_LOADED:
+//       return action.comments
+//     case actions.NEW_COMMENT:
+//       return [...state, action.commentData]
+//     default:
+//       return state
+//   }
+// }
 
 export default commentsReducer

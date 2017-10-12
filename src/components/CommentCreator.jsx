@@ -11,11 +11,11 @@ import {
 
 import createUUID from '../utils/createUUID'
 
-import { newPost } from '../actions/posts'
+import { createComment } from '../actions/comments'
 
 type CommentCreatorProps = {
   parentId: string,
-  createComment: (any) => mixed,
+  addComment: (any) => mixed,
 };
 
 type CommentCreatorState = {
@@ -40,7 +40,7 @@ class CommentCreator extends Component<CommentCreatorProps, CommentCreatorState>
   }
 
   onPostSubmit = (event, { value }: { value: string }) => {
-    const { parentId, createComment } = this.props
+    const { parentId, addComment } = this.props
     const { inputContent, inputAuthor } = this.state
 
     // validate these fields?
@@ -54,7 +54,7 @@ class CommentCreator extends Component<CommentCreatorProps, CommentCreatorState>
     }
 
     console.log("create the comment!")
-    createComment(commentFields)
+    addComment(commentFields)
 
     this.setState({
       inputAuthor: '',
@@ -89,11 +89,11 @@ class CommentCreator extends Component<CommentCreatorProps, CommentCreatorState>
         <Form style={formStyles} onSubmit={this.onPostSubmit}>
           <Divider />
           <Form.Field>
-            <label>Post author</label>
+            <label>Comment author</label>
             <input placeholder='I am Anon' value={inputAuthor} onChange={this.handleAuthorChange} />
           </Form.Field>
           <Form.Field>
-            <Form.TextArea label='Post content' placeholder='Hello friends...' value={inputContent} onChange={this.handleContentChange} />
+            <Form.TextArea label='Comment content' placeholder='Hello friends...' value={inputContent} onChange={this.handleContentChange} />
           </Form.Field>
           <Button type='submit'>Send!</Button>
         </Form>
@@ -107,7 +107,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  createComment: (postData) => dispatch(newPost(postData))
+  addComment: (commentData) => dispatch(createComment(commentData))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommentCreator)

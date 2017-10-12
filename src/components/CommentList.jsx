@@ -85,9 +85,14 @@ class CommentList extends Component<CommentListProps> {
 }
 
 const mapStateToProps = (state, props) => {
+  console.log('comment list...', state)
+  // const comments = props.post_id
+  //   ? state.comments.filter(comment => props.post_id === comment.parentId)
+  //   : state.comments
+  const commentList = Object.keys(state.comments).map(comment_id => state.comments[comment_id])
   const comments = props.post_id
-    ? state.comments.filter(comment => props.post_id === comment.parentId)
-    : state.comments
+    ? commentList.filter(comment => props.post_id === comment.parentId)
+    : commentList
 
   return ({
     comments,

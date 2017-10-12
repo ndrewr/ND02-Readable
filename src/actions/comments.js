@@ -53,10 +53,11 @@ export function loadComments(post_id: string) {
   };
 }
 
-export function newPost(commentData: CommentFields) {
+export function createComment(commentData: CommentFields) {
   return function (dispatch: (action: CommentAction) => void) {
-    return readableApi.createNewPost(commentData)
+    return readableApi.createNewComment(commentData)
     .then(comment => {
+      console.log('comment created...', comment)
       dispatch({
         type: actions.NEW_COMMENT,
         commentData: comment,

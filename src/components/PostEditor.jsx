@@ -6,17 +6,14 @@ import {
   Button,
   Divider,
   Form,
-  Segment,
-  Select
+  // Segment,
+  // Select
 } from 'semantic-ui-react'
-
-import createUUID from '../utils/createUUID'
 
 import { updatePost } from '../actions/posts'
 
 type PostCreatorProps = {
   post: any,
-  selectedCategory: string,
   onSubmit: () => void,
   updatePost: (any) => mixed,
 };
@@ -45,7 +42,7 @@ class PostCreator extends Component<PostCreatorProps, PostCreatorState> {
   }
 
   onPostSubmit = (event, { value }: { value: string }) => {
-    const { post, selectedCategory, onSubmit, updatePost } = this.props
+    const { post, onSubmit, updatePost } = this.props
     const { inputContent, inputTitle } = this.state
 
     // validate these fields?
@@ -66,7 +63,6 @@ class PostCreator extends Component<PostCreatorProps, PostCreatorState> {
   }
 
   render() {
-    const { selectedCategory } = this.props
     const {
       inputContent,
       inputTitle,

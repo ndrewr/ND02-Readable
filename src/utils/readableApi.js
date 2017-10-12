@@ -75,7 +75,7 @@ class ReadableApi {
 
   static deletePost(post_id) {
     console.log('deleting post...', post_id)
-    
+
     const requestOptions = {
       method: 'DELETE',
       // body: JSON.stringify(postFields),
@@ -97,6 +97,25 @@ class ReadableApi {
     .catch(this.errorHandler)
   }
 
+
+  static createNewComment(commentFields) {
+    const requestOptions = {
+      method: 'POST',
+      body: JSON.stringify(commentFields),
+      headers: {
+        ...this.defaultHeaders,
+        "Content-Type": "application/json"
+      },
+    }
+
+    return fetch(
+      this.rootURL + 'comments',
+      requestOptions
+    )
+    .then(response => response.json())
+    .catch(this.errorHandler)
+  }
+
   static async getComments(post_id: string) {
     // console.log('getting comments for post: ', post_id)
     const response = await fetch(
@@ -112,7 +131,6 @@ class ReadableApi {
     // console.log('the comments are...', comments)
     return comments
   }
-
 
   static getComment(comment_id: string) {
     console.log('getting single comment for...', comment_id)

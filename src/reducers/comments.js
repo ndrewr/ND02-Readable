@@ -17,6 +17,8 @@ const commentsReducer = (state: any = {}, action: CommentAction) => {
       }, {});
     case actions.NEW_COMMENT:
       return { ...state, [action.commentData.id]: action.commentData };
+    case actions.UPDATE_COMMENT:
+      return { ...state, [action.commentData.id]: action.commentData };
     case actions.UPDATE_COMMENT_SCORE:
       return { ...state, [action.commentData.id]: action.commentData };
     default:

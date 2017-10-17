@@ -70,6 +70,26 @@ export function createComment(commentData: CommentFields) {
   };
 }
 
+export function updateComment(
+  comment_id: string,
+  commentData: { title: string, body: string }
+) {
+  return function(dispatch: (action: CommentAction) => void) {
+    return readableApi
+      .updateComment(comment_id, commentData)
+      .then(comment => {
+        dispatch({
+          type: actions.UPDATE_COMMENT,
+          commentData: comment
+        });
+      })
+      .catch(error => {
+        console.log('error!');
+        throw error;
+      });
+  };
+}
+
 export function updateScore(
   comment_id: string,
   updateType: { option: 'upVote' | 'downVote' }

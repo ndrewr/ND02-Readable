@@ -51,7 +51,6 @@ type PostPageState = {
   editMode: boolean
 };
 
-// const PostPage = ({ comments, post = emptyPost }: { comments: any, post: PostItem }) => {
 class PostPage extends React.Component<PostPageProps, PostPageState> {
   state = {
     editMode: false
@@ -70,7 +69,6 @@ class PostPage extends React.Component<PostPageProps, PostPageState> {
   updateScore = event => {
     const { updateVoteScore } = this.props;
 
-    // console.log('update the score...', event.currentTarget, event.currentTarget.value, event)
     document.activeElement && document.activeElement.blur();
 
     // dispatch vote score update

@@ -34,15 +34,7 @@ const CommentItem = ({
     }
   };
 
-  // const cb = e => console.log('score update', e);
-  // const onScoreUpdate = () => {
-  //   const { comment, onScoreUpdate } = this.props
-  //   onScoreUpdate(comment.id)
-  // }
-
   const updateScore = event => {
-    console.log('update comment score...', comment.id);
-    // console.log('update the score...', event.currentTarget, event.currentTarget.value, event)
     document.activeElement && document.activeElement.blur();
 
     // dispatch vote score update

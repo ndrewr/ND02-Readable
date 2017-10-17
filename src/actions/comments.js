@@ -58,7 +58,6 @@ export function createComment(commentData: CommentFields) {
     return readableApi
       .createNewComment(commentData)
       .then(comment => {
-        console.log('comment created...', comment);
         dispatch({
           type: actions.NEW_COMMENT,
           commentData: comment

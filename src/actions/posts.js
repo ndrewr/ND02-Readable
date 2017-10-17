@@ -100,7 +100,6 @@ export function updateScore(
     return readableApi
       .updatePostScore(post_id, updateType)
       .then(post => {
-        console.log('hi');
         dispatch({
           type: actions.UPDATE_POST_SCORE,
           postData: post

@@ -1,40 +1,34 @@
 // @flow
 
-class ReadableApi {  
-  static rootURL = 'http://localhost:5001/' // TODO: dev vs deployment?
+class ReadableApi {
+  static rootURL = 'http://localhost:5001/'; // TODO: dev vs deployment?
   static defaultHeaders = {
-    'Authorization': 'whatever-you-want'
-  }
+    Authorization: 'whatever-you-want'
+  };
 
   static errorHandler(error: any) {
-    console.log('There was a problem. ', error)
-    throw(error)
+    console.log('There was a problem. ', error);
+    throw error;
   }
 
   static getPost(post_id: string) {
-    return fetch(
-      this.rootURL + 'posts/' + post_id,
-      {
-        headers: {
-          ...this.defaultHeaders,
-        }
+    return fetch(this.rootURL + 'posts/' + post_id, {
+      headers: {
+        ...this.defaultHeaders
       }
-    )
-    .then(results => results.json())
-    .catch(this.errorHandler)
+    })
+      .then(results => results.json())
+      .catch(this.errorHandler);
   }
 
   static getPosts() {
-    return fetch(
-      this.rootURL + 'posts',
-      {
-        headers: {
-          ...this.defaultHeaders,
-        }
+    return fetch(this.rootURL + 'posts', {
+      headers: {
+        ...this.defaultHeaders
       }
-    )
-    .then(results => results.json())
-    .catch(this.errorHandler)
+    })
+      .then(results => results.json())
+      .catch(this.errorHandler);
   }
 
   static createNewPost(postFields) {
@@ -43,16 +37,13 @@ class ReadableApi {
       body: JSON.stringify(postFields),
       headers: {
         ...this.defaultHeaders,
-        "Content-Type": "application/json"
-      },
-    }
+        'Content-Type': 'application/json'
+      }
+    };
 
-    return fetch(
-      this.rootURL + 'posts',
-      requestOptions
-    )
-    .then(response => response.json())
-    .catch(this.errorHandler)
+    return fetch(this.rootURL + 'posts', requestOptions)
+      .then(response => response.json())
+      .catch(this.errorHandler);
   }
 
   static updatePost(post_id, postFields) {
@@ -61,61 +52,50 @@ class ReadableApi {
       body: JSON.stringify(postFields),
       headers: {
         ...this.defaultHeaders,
-        "Content-Type": "application/json"
-      },
-    }
+        'Content-Type': 'application/json'
+      }
+    };
 
-    return fetch(
-      this.rootURL + 'posts/' + post_id,
-      requestOptions
-    )
-    .then(response => response.json())
-    .catch(this.errorHandler)
+    return fetch(this.rootURL + 'posts/' + post_id, requestOptions)
+      .then(response => response.json())
+      .catch(this.errorHandler);
   }
 
-//TODO
-  static updatePostScore(post_id, postFields) {
+  static updatePostScore(post_id, updateType) {
     const requestOptions = {
-      method: 'PUT',
-      body: JSON.stringify(postFields),
+      method: 'POST',
+      body: JSON.stringify(updateType),
       headers: {
         ...this.defaultHeaders,
-        "Content-Type": "application/json"
-      },
-    }
+        'Content-Type': 'application/json'
+      }
+    };
 
-    return fetch(
-      this.rootURL + 'posts/' + post_id,
-      requestOptions
-    )
-    .then(response => response.json())
-    .catch(this.errorHandler)
+    return fetch(this.rootURL + 'posts/' + post_id, requestOptions)
+      .then(response => response.json())
+      .catch(this.errorHandler);
   }
 
   static deletePost(post_id) {
-    console.log('deleting post...', post_id)
+    console.log('deleting post...', post_id);
 
     const requestOptions = {
       method: 'DELETE',
-      // body: JSON.stringify(postFields),
       headers: {
-        ...this.defaultHeaders,
-        // "Content-Type": "application/json"
-      },
-    }
+        ...this.defaultHeaders
+      }
+    };
 
-    return fetch(
-      this.rootURL + 'posts/' + post_id,
-      requestOptions
-    )
-    // .then(response => response.json())
-    .then(response => {
-      console.log('deleted! ', response)
-      // response.json()
-    })
-    .catch(this.errorHandler)
+    return (
+      fetch(this.rootURL + 'posts/' + post_id, requestOptions)
+        // .then(response => response.json())
+        .then(response => {
+          console.log('deleted! ', response);
+          // response.json()
+        })
+        .catch(this.errorHandler)
+    );
   }
-
 
   static createNewComment(commentFields) {
     const requestOptions = {
@@ -123,49 +103,58 @@ class ReadableApi {
       body: JSON.stringify(commentFields),
       headers: {
         ...this.defaultHeaders,
-        "Content-Type": "application/json"
-      },
-    }
+        'Content-Type': 'application/json'
+      }
+    };
 
-    return fetch(
-      this.rootURL + 'comments',
-      requestOptions
-    )
-    .then(response => response.json())
-    .catch(this.errorHandler)
+    return fetch(this.rootURL + 'comments', requestOptions)
+      .then(response => response.json())
+      .catch(this.errorHandler);
   }
 
   static async getComments(post_id: string) {
     // console.log('getting comments for post: ', post_id)
     const response = await fetch(
-      this.rootURL + 'posts/' + post_id + '/comments' ,
+      this.rootURL + 'posts/' + post_id + '/comments',
       {
         headers: {
-          ...this.defaultHeaders,
+          ...this.defaultHeaders
         }
       }
-    )
+    );
 
-    const comments = await response.json()
+    const comments = await response.json();
     // console.log('the comments are...', comments)
-    return comments
+    return comments;
   }
 
   static getComment(comment_id: string) {
-    console.log('getting single comment for...', comment_id)
+    console.log('getting single comment for...', comment_id);
+  }
+
+  static updateCommentScore(comment_id, updateType) {
+    const requestOptions = {
+      method: 'POST',
+      body: JSON.stringify(updateType),
+      headers: {
+        ...this.defaultHeaders,
+        'Content-Type': 'application/json'
+      }
+    };
+
+    return fetch(this.rootURL + 'comments/' + comment_id, requestOptions)
+      .then(response => response.json())
+      .catch(this.errorHandler);
   }
 
   static getCategories() {
-    return fetch(
-      this.rootURL + 'categories',
-      {
-        headers: {
-          ...this.defaultHeaders,
-        }
+    return fetch(this.rootURL + 'categories', {
+      headers: {
+        ...this.defaultHeaders
       }
-    )
-    .then(results => results.json())
-    .catch(this.errorHandler)
+    })
+      .then(results => results.json())
+      .catch(this.errorHandler);
   }
 }
 

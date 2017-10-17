@@ -212,7 +212,7 @@ app.post('/posts/:id', bodyParser.json(), (req, res) => {
     const id = req.params.id
     posts.vote(req.token, id, option)
       .then(
-          // (data) => res.send(data),
+          (data) => res.send(data),
           (error) => {
               console.error(error)
               res.status(500).send({

@@ -5,20 +5,19 @@ import { connect } from 'react-redux';
 import {
   Button,
   Grid,
-  Header,
+  Header
   // Icon,
-  Statistic,
-} from 'semantic-ui-react'
+} from 'semantic-ui-react';
 
-import formatTime from '../utils/formatTime'
+import formatTime from '../utils/formatTime';
 
-import CommentCreator from '../components/CommentCreator'
-import CommentList from '../components/CommentList'
-import PostEditor from '../components/PostEditor'
+import CommentCreator from '../components/CommentCreator';
+import CommentList from '../components/CommentList';
+import PostEditor from '../components/PostEditor';
 
-import ScoreDisplay from '../components/ScoreDisplay'
+import ScoreDisplay from '../components/ScoreDisplay';
 
-import { deletePost } from '../actions/posts'
+import { deletePost, updateScore } from '../actions/posts';
 
 type PostItem = {
   body: string,
@@ -27,7 +26,7 @@ type PostItem = {
   title: string,
   id: string,
   timestamp: number,
-  author: string,
+  author: string
 };
 
 const emptyPost = {
@@ -37,104 +36,120 @@ const emptyPost = {
   title: '',
   id: '',
   timestamp: 0,
-  author: '',
-}
+  author: ''
+};
 
 type PostPageProps = {
   history: any,
   post_id: string,
   post: PostItem,
-  deletePost: (string) => void,
-}
+  deletePost: string => void,
+  updateVoteScore: string => void
+};
 
 type PostPageState = {
-  editMode: boolean,
-}
+  editMode: boolean
+};
 
 // const PostPage = ({ comments, post = emptyPost }: { comments: any, post: PostItem }) => {
 class PostPage extends React.Component<PostPageProps, PostPageState> {
   state = {
-    editMode: false,
-  }
+    editMode: false
+  };
 
   deletePost = () => {
-    const { post_id, history } = this.props
-    this.props.deletePost(post_id)
-    history.goBack()
-  }
+    const { post_id, history } = this.props;
+    this.props.deletePost(post_id);
+    history.goBack();
+  };
 
-  toggleEdit = (event) => {
-    this.setState(state => ({ editMode: ! state.editMode }))
-  }
+  toggleEdit = event => {
+    this.setState(state => ({ editMode: !state.editMode }));
+  };
 
-  updateScore = (event) => {
-    console.log('update the score...', event.target)
-    document.activeElement && document.activeElement.blur()
+  updateScore = event => {
+    const { updateVoteScore } = this.props;
+
+    // console.log('update the score...', event.currentTarget, event.currentTarget.value, event)
+    document.activeElement && document.activeElement.blur();
 
     // dispatch vote score update
-  }
+    updateVoteScore(event.currentTarget.value);
+  };
 
   render() {
-    const { post } = this.props
-    const { editMode } = this.state
+    const { post } = this.props;
+    const { editMode } = this.state;
 
-                    // <Statistic size="large" value={post.voteScore} />
-     return (
-        <div className="post-page">
-          <Header size="small" textAlign="left" content={`/${post.category}`} />
+    return (
+      <div className="post-page">
+        <Header size="small" textAlign="left" content={`/${post.category}`} />
 
-          <div>
-            <Button as='button' onClick={this.toggleEdit}>
-              EDIT
-            </Button>
-            <Button as='button' onClick={this.deletePost}>
-              DELETE
-            </Button>            
-          </div>
-          {editMode
-            ? <PostEditor post={post} selectedCategory={post.category} onSubmit={this.toggleEdit} />
-            : <Grid>
-                <Grid.Row>
-                  <Grid.Column width={12}>
-                    <Header size="huge" content={post.title} />
-                    <Header sub size="small" content={`submitted on ${formatTime(post.timestamp)} by ${post.author}`} dividing />
-                  </Grid.Column>
-
-                  <Grid.Column width={4} textAlign="center">
-                  <ScoreDisplay score={post.voteScore} updateScore={this.updateScore} />
-                  </Grid.Column>
-                </Grid.Row>
-             
-                <p>
-                  {post.body}
-                </p>
-              </Grid>
-          }
-
-          <h1>The comments:</h1>
-          {post.id &&
-            <CommentList post_id={post.id} />
-          }
-          <hr />
-
-          <CommentCreator parentId={post.id} />
+        <div>
+          <Button as="button" onClick={this.toggleEdit}>
+            {editMode ? 'CANCEL' : 'EDIT'}
+          </Button>
+          <Button as="button" onClick={this.deletePost}>
+            DELETE
+          </Button>
         </div>
-      );
+        {editMode ? (
+          <PostEditor
+            post={post}
+            selectedCategory={post.category}
+            onSubmit={this.toggleEdit}
+          />
+        ) : (
+          <Grid>
+            <Grid.Row>
+              <Grid.Column width={12}>
+                <Header size="huge" content={post.title} />
+                <Header
+                  sub
+                  size="small"
+                  content={`submitted on ${formatTime(
+                    post.timestamp
+                  )} by ${post.author}`}
+                  dividing
+                />
+              </Grid.Column>
+
+              <Grid.Column width={4} textAlign="center">
+                <ScoreDisplay
+                  score={post.voteScore}
+                  updateScore={this.updateScore}
+                />
+              </Grid.Column>
+            </Grid.Row>
+
+            <p>{post.body}</p>
+          </Grid>
+        )}
+
+        <h1>The comments:</h1>
+        {post.id && <CommentList post_id={post.id} />}
+        <hr />
+
+        <CommentCreator parentId={post.id} />
+      </div>
+    );
   }
 }
 
 const mapStateToProps = (state, props) => {
-  const post_id = props.match.params.post_id
-  let post = state.posts[post_id] || emptyPost
+  const post_id = props.match.params.post_id;
+  let post = state.posts[post_id] || emptyPost;
 
-  return ({
+  return {
     post_id,
-    post,
-  })
-}
+    post
+  };
+};
 
-const mapDispatchToProps = dispatch => ({
-  deletePost: (post_id) => dispatch(deletePost(post_id))
+const mapDispatchToProps = (dispatch, { match: { params } }) => ({
+  deletePost: (post_id: string) => dispatch(deletePost(post_id)),
+  updateVoteScore: (vote: 'upVote' | 'downVote') =>
+    dispatch(updateScore(params.post_id, { option: vote }))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostPage)
+export default connect(mapStateToProps, mapDispatchToProps)(PostPage);

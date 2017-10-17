@@ -1,37 +1,49 @@
 // @flow
 
 import React from 'react';
-import {
-  List,
-  Statistic,
-} from 'semantic-ui-react'
+import { Comment } from 'semantic-ui-react';
 
-import formatTime from '../utils/formatTime'
+import ScoreDisplay from './ScoreDisplay';
 
-type CommentItem = {
+import formatTime from '../utils/formatTime';
+
+type CommentFields = {
   voteScore?: number,
   body?: string,
   id: string,
   timestamp: number,
-  author?: string,
+  author?: string
 };
 
-const Comment = ({ comment }: { comment: CommentItem }) => (
-  <List.Item style={{marginBottom: '1rem'}}>
-    <List.Content>
-      <Statistic floated="left" size="small" style={{width: '4rem', marginRight: '2rem'}}>
-        <Statistic.Value style={{textAlign: 'right'}}>
-          {comment.voteScore}
-        </Statistic.Value>
-      </Statistic>
-      <List.Header as='a'>
-        {comment.body}
-      </List.Header>
-        <List.Description>
-          commented {formatTime(comment.timestamp)} by {comment.author}
-        </List.Description>
-    </List.Content>
-  </List.Item>
-)
+const CommentItem = ({ comment }: { comment: CommentFields }) => {
+  const styles = {
+    commentContainer: {
+      minHeight: '90px'
+    },
+    scoreContainer: {
+      float: 'left'
+    },
+    contentContainer: {
+      paddingTop: '20px'
+    }
+  };
 
-export default Comment
+  const cb = e => console.log('score update', e);
+
+  return (
+    <Comment style={styles.commentContainer}>
+      <div style={styles.scoreContainer}>
+        <ScoreDisplay score={comment.voteScore} size="tiny" updateScore={cb} />
+      </div>
+      <Comment.Content style={styles.contentContainer}>
+        <Comment.Author as="span">{comment.author} says:</Comment.Author>
+        <Comment.Metadata>
+          <span>on {formatTime(comment.timestamp)}</span>
+        </Comment.Metadata>
+        <Comment.Text>{comment.body}</Comment.Text>
+      </Comment.Content>
+    </Comment>
+  );
+};
+
+export default CommentItem;

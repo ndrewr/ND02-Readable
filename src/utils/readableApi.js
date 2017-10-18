@@ -162,6 +162,27 @@ class ReadableApi {
       .catch(this.errorHandler);
   }
 
+  static deleteComment(comment_id) {
+    console.log('deleting comment...', comment_id);
+
+    const requestOptions = {
+      method: 'DELETE',
+      headers: {
+        ...this.defaultHeaders
+      }
+    };
+
+    return (
+      fetch(this.rootURL + 'comments/' + comment_id, requestOptions)
+        // .then(response => response.json())
+        .then(response => {
+          console.log('deleted! ', response);
+          // response.json()
+        })
+        .catch(this.errorHandler)
+    );
+  }
+
   static getCategories() {
     return fetch(this.rootURL + 'categories', {
       headers: {

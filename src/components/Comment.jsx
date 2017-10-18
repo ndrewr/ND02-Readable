@@ -6,7 +6,7 @@ import { Button, Comment, Form, Icon } from 'semantic-ui-react';
 
 import ScoreDisplay from './ScoreDisplay';
 
-import { updateComment, updateScore } from '../actions/comments';
+import { deleteComment, updateComment, updateScore } from '../actions/comments';
 
 import formatTime from '../utils/formatTime';
 
@@ -20,6 +20,7 @@ type CommentFields = {
 
 type CommentProps = {
   comment: any,
+  deleteComment: () => void,
   updateComment: any => void,
   updateVoteScore: string => void
 };
@@ -79,6 +80,14 @@ class CommentItem extends Component<CommentProps, CommentState> {
     updateVoteScore(event.currentTarget.value);
   };
 
+  deleteComment = () => {
+    const { comment, deleteComment } = this.props;
+
+    console.log('will delete comment with id...', comment.id);
+
+    deleteComment();
+  };
+
   render() {
     const { comment } = this.props;
     const { commentBody, editMode } = this.state;
@@ -113,7 +122,7 @@ class CommentItem extends Component<CommentProps, CommentState> {
                 icon="remove"
                 size="mini"
                 style={this.styles.actionButton}
-                onClick={this.toggleFormVisibility}
+                onClick={this.deleteComment}
               />
             </Comment.Action>
           </Comment.Actions>
@@ -142,6 +151,7 @@ class CommentItem extends Component<CommentProps, CommentState> {
 }
 
 const mapDispatchToProps = (dispatch, { comment }) => ({
+  deleteComment: () => dispatch(deleteComment(comment.id)),
   updateVoteScore: (vote: 'upVote' | 'downVote') =>
     dispatch(updateScore(comment.id, { option: vote })),
   updateComment: commentFields =>

@@ -1,9 +1,12 @@
 // @flow
 
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Button, Comment, Form, Icon } from 'semantic-ui-react';
 
 import ScoreDisplay from './ScoreDisplay';
+
+import { updateComment, updateScore } from '../actions/comments';
 
 import formatTime from '../utils/formatTime';
 
@@ -15,25 +18,20 @@ type CommentFields = {
   author?: string
 };
 
-// const CommentItem = ({
-//   comment,
-//   updateVoteScore
-// }: {
-//   comment: CommentFields,
-//   updateVoteScore: (string, string) => void
-// }) => {
-
 type CommentProps = {
   comment: any,
-  updateVoteScore: (string, string) => void
+  updateComment: any => void,
+  updateVoteScore: string => void
 };
 
 type CommentState = {
+  commentBody: string,
   editMode: boolean
 };
 
 class CommentItem extends Component<CommentProps, CommentState> {
   state = {
+    commentBody: this.props.comment.body,
     editMode: false
   };
 
@@ -56,18 +54,34 @@ class CommentItem extends Component<CommentProps, CommentState> {
     this.setState(prevState => ({ editMode: !prevState.editMode }));
   };
 
+  handleChange = event => {
+    this.setState({ commentBody: event.target.value });
+  };
+
+  handleSubmit = event => {
+    const { updateComment } = this.props;
+    const { commentBody } = this.state;
+
+    updateComment({
+      body: commentBody,
+      timestamp: Date.now()
+    });
+
+    this.toggleFormVisibility();
+  };
+
   updateScore = event => {
-    const { comment, updateVoteScore } = this.props;
+    const { updateVoteScore } = this.props;
 
     document.activeElement && document.activeElement.blur();
 
     // dispatch vote score update
-    updateVoteScore(comment.id, event.currentTarget.value);
+    updateVoteScore(event.currentTarget.value);
   };
 
   render() {
     const { comment } = this.props;
-    const { editMode } = this.state;
+    const { commentBody, editMode } = this.state;
 
     return (
       <Comment style={this.styles.commentContainer}>
@@ -107,12 +121,14 @@ class CommentItem extends Component<CommentProps, CommentState> {
             <Comment.Text>{comment.body}</Comment.Text>
           ) : (
             <Comment.Text>
-              <Form onSubmit={() => console.log('submit')}>
+              <Form onSubmit={this.handleSubmit}>
                 <Form.Group>
                   <Form.Input
                     placeholder="Change it up"
                     name="comment_body"
-                    value={comment.body}
+                    value={commentBody}
+                    width={14}
+                    onChange={this.handleChange}
                   />
                   <Form.Button content="Submit" />
                 </Form.Group>
@@ -125,4 +141,11 @@ class CommentItem extends Component<CommentProps, CommentState> {
   }
 }
 
-export default CommentItem;
+const mapDispatchToProps = (dispatch, { comment }) => ({
+  updateVoteScore: (vote: 'upVote' | 'downVote') =>
+    dispatch(updateScore(comment.id, { option: vote })),
+  updateComment: commentFields =>
+    dispatch(updateComment(comment.id, commentFields))
+});
+
+export default connect(null, mapDispatchToProps)(CommentItem);

@@ -8,15 +8,13 @@ import {
   // Header,
   // Icon,
   // List,
-  // Statistic,
 } from 'semantic-ui-react';
 
-import ListDisplayControls from './ListDisplayControls';
 import CommentItem from './Comment';
+import ListDisplayControls from './ListDisplayControls';
 
+import { loadComments } from '../actions/comments';
 import { setSortDirection, setSortFilter } from '../actions/listFilter';
-
-import { loadComments, updateScore } from '../actions/comments';
 
 type CommentListProps = {
   post_id: string,
@@ -25,8 +23,7 @@ type CommentListProps = {
   sortDirection: string,
   sortFilter: string,
   setFilter: () => mixed,
-  setDirection: () => mixed,
-  updateVoteScore: (string, string) => void
+  setDirection: () => mixed
 };
 
 class CommentList extends Component<CommentListProps> {
@@ -67,13 +64,7 @@ class CommentList extends Component<CommentListProps> {
   };
 
   render() {
-    const {
-      sortFilter,
-      sortDirection,
-      setFilter,
-      setDirection,
-      updateVoteScore
-    } = this.props;
+    const { sortFilter, sortDirection, setFilter, setDirection } = this.props;
 
     return (
       <div className="comment-list">
@@ -86,11 +77,7 @@ class CommentList extends Component<CommentListProps> {
         />
         <Comment.Group size="large">
           {this.sortedList().map(comment => (
-            <CommentItem
-              key={comment.id}
-              comment={comment}
-              updateVoteScore={updateVoteScore}
-            />
+            <CommentItem key={comment.id} comment={comment} />
           ))}
         </Comment.Group>
       </div>
@@ -117,9 +104,7 @@ const mapDispatchToProps = dispatch => ({
   loadComments: post_id => dispatch(loadComments(post_id)),
   setDirection: selectedDirection =>
     dispatch(setSortDirection(selectedDirection)),
-  setFilter: selectedFilter => dispatch(setSortFilter(selectedFilter)),
-  updateVoteScore: (comment_id: string, vote: 'upVote' | 'downVote') =>
-    dispatch(updateScore(comment_id, { option: vote }))
+  setFilter: selectedFilter => dispatch(setSortFilter(selectedFilter))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommentList);

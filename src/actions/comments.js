@@ -72,7 +72,7 @@ export function createComment(commentData: CommentFields) {
 
 export function updateComment(
   comment_id: string,
-  commentData: { title: string, body: string }
+  commentData: { body: string, timestamp: number }
 ) {
   return function(dispatch: (action: CommentAction) => void) {
     return readableApi

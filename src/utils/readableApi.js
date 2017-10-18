@@ -132,6 +132,21 @@ class ReadableApi {
     console.log('getting single comment for...', comment_id);
   }
 
+  static updateComment(comment_id, commentFields) {
+    const requestOptions = {
+      method: 'PUT',
+      body: JSON.stringify(commentFields),
+      headers: {
+        ...this.defaultHeaders,
+        'Content-Type': 'application/json'
+      }
+    };
+
+    return fetch(this.rootURL + 'comments/' + comment_id, requestOptions)
+      .then(response => response.json())
+      .catch(this.errorHandler);
+  }
+
   static updateCommentScore(comment_id, updateType) {
     const requestOptions = {
       method: 'POST',

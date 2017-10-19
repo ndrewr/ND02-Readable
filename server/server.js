@@ -198,9 +198,7 @@ app.delete('/posts/:id', (req, res) => {
               return post
           })
       .then(
-          // (data) => res.send(data),
           data => {
-            console.log('deletin...', data)
             return res.send(data)
           },
           (error) => {

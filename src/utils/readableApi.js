@@ -3,7 +3,7 @@
 class ReadableApi {
   static rootURL = 'http://localhost:5001/'; // TODO: dev vs deployment?
   static defaultHeaders = {
-    Authorization: 'whatever-you-want'
+    Authorization: 'let-me-pass-please'
   };
 
   static errorHandler(error: any) {
@@ -11,6 +11,7 @@ class ReadableApi {
     throw error;
   }
 
+  // POSTS
   static getPost(post_id: string) {
     return fetch(this.rootURL + 'posts/' + post_id, {
       headers: {
@@ -89,6 +90,7 @@ class ReadableApi {
       .catch(this.errorHandler);
   }
 
+  // COMMENTS
   static createNewComment(commentFields) {
     const requestOptions = {
       method: 'POST',
@@ -105,22 +107,14 @@ class ReadableApi {
   }
 
   static async getComments(post_id: string) {
-    const response = await fetch(
-      this.rootURL + 'posts/' + post_id + '/comments',
-      {
-        headers: {
-          ...this.defaultHeaders
-        }
+    return fetch(this.rootURL + 'posts/' + post_id + '/comments', {
+      headers: {
+        ...this.defaultHeaders
       }
-    );
-
-    const comments = await response.json();
-    return comments;
+    })
+      .then(response => response.json())
+      .catch(this.errorHandler);
   }
-
-  // static getComment(comment_id: string) {
-  //   console.log('getting single comment for...', comment_id);
-  // }
 
   static updateComment(comment_id, commentFields) {
     const requestOptions = {
@@ -165,6 +159,7 @@ class ReadableApi {
       .catch(this.errorHandler);
   }
 
+  // CATEGORIES
   static getCategories() {
     return fetch(this.rootURL + 'categories', {
       headers: {

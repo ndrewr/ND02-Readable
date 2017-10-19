@@ -177,7 +177,7 @@ class ReadableApi {
         // .then(response => response.json())
         .then(response => {
           console.log('deleted! ', response);
-          // response.json()
+          return response.json();
         })
         .catch(this.errorHandler)
     );

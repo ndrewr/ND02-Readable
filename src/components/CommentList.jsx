@@ -2,13 +2,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  Comment
-  // Divider,
-  // Header,
-  // Icon,
-  // List,
-} from 'semantic-ui-react';
+import { Comment } from 'semantic-ui-react';
 
 import CommentItem from './Comment';
 import ListDisplayControls from './ListDisplayControls';

@@ -113,7 +113,7 @@ export function updateScore(
 export function deleteComment(comment_id: string) {
   return function(dispatch: (action: CommentAction) => void) {
     return readableApi
-      .deletePost(comment_id)
+      .deleteComment(comment_id)
       .then(result => {
         console.log('comment deleted! ', comment_id, result);
         dispatch({

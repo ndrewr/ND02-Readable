@@ -20,9 +20,9 @@ const postsReducer = (state: any = {}, action: PostAction) => {
         return postCache;
       }, {});
     case actions.NEW_POST:
-      return { ...state, [action.postData.id]: action.postData };
+    // return { ...state, [action.postData.id]: action.postData };
     case actions.UPDATE_POST:
-      return { ...state, [action.postData.id]: action.postData };
+    // return { ...state, [action.postData.id]: action.postData };
     case actions.UPDATE_POST_SCORE:
       return { ...state, [action.postData.id]: action.postData };
     case actions.DELETE_POST:

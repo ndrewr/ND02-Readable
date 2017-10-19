@@ -77,8 +77,6 @@ class ReadableApi {
   }
 
   static deletePost(post_id) {
-    console.log('deleting post...', post_id);
-
     const requestOptions = {
       method: 'DELETE',
       headers: {
@@ -86,15 +84,9 @@ class ReadableApi {
       }
     };
 
-    return (
-      fetch(this.rootURL + 'posts/' + post_id, requestOptions)
-        // .then(response => response.json())
-        .then(response => {
-          console.log('deleted! ', response);
-          // response.json()
-        })
-        .catch(this.errorHandler)
-    );
+    return fetch(this.rootURL + 'posts/' + post_id, requestOptions)
+      .then(response => response.json())
+      .catch(this.errorHandler);
   }
 
   static createNewComment(commentFields) {
@@ -113,7 +105,6 @@ class ReadableApi {
   }
 
   static async getComments(post_id: string) {
-    // console.log('getting comments for post: ', post_id)
     const response = await fetch(
       this.rootURL + 'posts/' + post_id + '/comments',
       {
@@ -124,13 +115,12 @@ class ReadableApi {
     );
 
     const comments = await response.json();
-    // console.log('the comments are...', comments)
     return comments;
   }
 
-  static getComment(comment_id: string) {
-    console.log('getting single comment for...', comment_id);
-  }
+  // static getComment(comment_id: string) {
+  //   console.log('getting single comment for...', comment_id);
+  // }
 
   static updateComment(comment_id, commentFields) {
     const requestOptions = {
@@ -163,8 +153,6 @@ class ReadableApi {
   }
 
   static deleteComment(comment_id) {
-    console.log('deleting comment...', comment_id);
-
     const requestOptions = {
       method: 'DELETE',
       headers: {
@@ -172,15 +160,9 @@ class ReadableApi {
       }
     };
 
-    return (
-      fetch(this.rootURL + 'comments/' + comment_id, requestOptions)
-        // .then(response => response.json())
-        .then(response => {
-          console.log('deleted! ', response);
-          return response.json();
-        })
-        .catch(this.errorHandler)
-    );
+    return fetch(this.rootURL + 'comments/' + comment_id, requestOptions)
+      .then(response => response.json())
+      .catch(this.errorHandler);
   }
 
   static getCategories() {

@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button, Comment, Form, Icon } from 'semantic-ui-react';
+import { Button, Comment, Form } from 'semantic-ui-react';
 
 import ScoreDisplay from './ScoreDisplay';
 
@@ -10,13 +10,13 @@ import { deleteComment, updateComment, updateScore } from '../actions/comments';
 
 import formatTime from '../utils/formatTime';
 
-type CommentFields = {
-  voteScore?: number,
-  body?: string,
-  id: string,
-  timestamp: number,
-  author?: string
-};
+// type CommentFields = {
+//   voteScore?: number,
+//   body?: string,
+//   id: string,
+//   timestamp: number,
+//   author?: string
+// };
 
 type CommentProps = {
   comment: any,

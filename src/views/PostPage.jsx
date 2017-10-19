@@ -2,12 +2,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import {
-  Button,
-  Grid,
-  Header
-  // Icon,
-} from 'semantic-ui-react';
+import { Button, Grid, Header } from 'semantic-ui-react';
 
 import formatTime from '../utils/formatTime';
 
@@ -57,8 +52,8 @@ class PostPage extends React.Component<PostPageProps, PostPageState> {
   };
 
   deletePost = () => {
-    const { post_id, history } = this.props;
-    this.props.deletePost(post_id);
+    const { post_id, history, deletePost } = this.props;
+    deletePost(post_id);
     history.goBack();
   };
 

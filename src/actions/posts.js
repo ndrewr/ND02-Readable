@@ -124,7 +124,7 @@ export function deletePost(post_id: string) {
         });
       })
       .catch(error => {
-        console.log('error!');
+        console.log('Post delete error!');
         throw error;
       });
   };

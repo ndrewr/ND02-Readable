@@ -195,9 +195,14 @@ app.delete('/posts/:id', (req, res) => {
       .then(
           (post) => {
               comments.disableByParent(req.token, post)
+              return post
           })
       .then(
-          (data) => res.send(data),
+          // (data) => res.send(data),
+          data => {
+            console.log('deletin...', data)
+            return res.send(data)
+          },
           (error) => {
               console.error(error)
               res.status(500).send({

@@ -115,7 +115,6 @@ export function deleteComment(comment_id: string) {
     return readableApi
       .deleteComment(comment_id)
       .then(result => {
-        console.log('comment deleted! ', comment_id, result);
         dispatch({
           type: actions.DELETE_COMMENT,
           deletedCommentId: comment_id

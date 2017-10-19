@@ -10,8 +10,11 @@ type PostAction = {
 };
 
 const postsReducer = (state: any = {}, action: PostAction) => {
-  console.log('Posts action: ', action);
   switch (action.type) {
+    case actions.NEW_POST:
+    case actions.UPDATE_POST:
+    case actions.UPDATE_POST_SCORE:
+      return { ...state, [action.postData.id]: action.postData };
     case actions.POSTS_LOADED:
       return action.posts.reduce((postCache, post) => {
         if (!post.deleted) {
@@ -19,12 +22,6 @@ const postsReducer = (state: any = {}, action: PostAction) => {
         }
         return postCache;
       }, {});
-    case actions.NEW_POST:
-    // return { ...state, [action.postData.id]: action.postData };
-    case actions.UPDATE_POST:
-    // return { ...state, [action.postData.id]: action.postData };
-    case actions.UPDATE_POST_SCORE:
-      return { ...state, [action.postData.id]: action.postData };
     case actions.DELETE_POST:
       return Object.keys(state).reduce((postCache, post_id) => {
         if (action.deletedPostId !== post_id) {

@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Comment } from 'semantic-ui-react';
+import { Comment, Header } from 'semantic-ui-react';
 
 import CommentItem from './Comment';
 import ListDisplayControls from './ListDisplayControls';
@@ -59,21 +59,33 @@ class CommentList extends Component<CommentListProps> {
 
   render() {
     const { sortFilter, sortDirection, setFilter, setDirection } = this.props;
+    const comments = this.sortedList();
 
     return (
       <div className="comment-list">
-        <ListDisplayControls
-          direction={sortDirection}
-          filter={sortFilter}
-          options={['score', 'time']}
-          onDirectionChange={setDirection}
-          onFilterChange={setFilter}
-        />
-        <Comment.Group size="large">
-          {this.sortedList().map(comment => (
-            <CommentItem key={comment.id} comment={comment} />
-          ))}
-        </Comment.Group>
+        {comments.length > 0 && (
+          <ListDisplayControls
+            direction={sortDirection}
+            filter={sortFilter}
+            options={['score', 'time']}
+            onDirectionChange={setDirection}
+            onFilterChange={setFilter}
+          />
+        )}
+
+        {comments.length ? (
+          <Comment.Group size="large">
+            {comments.map(comment => (
+              <CommentItem key={comment.id} comment={comment} />
+            ))}
+          </Comment.Group>
+        ) : (
+          <Header
+            size=""
+            textAlign="left"
+            content="Be the first to contribute your views!"
+          />
+        )}
       </div>
     );
   }

@@ -2,7 +2,14 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button, Divider, Form, Segment, Select } from 'semantic-ui-react';
+import {
+  Button,
+  Divider,
+  Form,
+  Icon,
+  Segment,
+  Select
+} from 'semantic-ui-react';
 
 import createUUID from '../utils/createUUID';
 
@@ -106,9 +113,9 @@ class PostCreator extends Component<PostCreatorProps, PostCreatorState> {
         overflowY: showForm ? 'auto' : 'hidden',
         transition: 'height .3s'
       },
-      toggleButton: {
-        display: 'block',
-        margin: '0 auto'
+      header: {
+        display: 'flex',
+        justifyContent: 'center'
       },
       container: {
         border: showForm ? '1px solid rgba(34,36,38,.15)' : 'none',
@@ -119,14 +126,19 @@ class PostCreator extends Component<PostCreatorProps, PostCreatorState> {
 
     return (
       <Segment style={styles.container}>
-        <Button
-          color={showForm ? 'green' : 'orange'}
-          size="large"
-          style={styles.toggleButton}
-          onClick={this.toggleFormOpen}
-        >
-          {showForm ? 'Post!' : 'Post?'}
-        </Button>
+        <div style={styles.header}>
+          <Icon
+            name={showForm ? 'thumbs up outline' : 'hand outline right'}
+            size="huge"
+          />
+          <Button
+            color={showForm ? 'green' : 'orange'}
+            size="large"
+            onClick={this.toggleFormOpen}
+          >
+            {showForm ? 'Post!' : 'Post?'}
+          </Button>
+        </div>
         <Form style={styles.form} onSubmit={this.onPostSubmit}>
           <Divider />
           <Form.Field>

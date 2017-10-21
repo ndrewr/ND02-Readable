@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button, Divider, Grid, Header, Icon } from 'semantic-ui-react';
+import { Button, Divider, Grid, Header } from 'semantic-ui-react';
 
 import formatTime from '../utils/formatTime';
 
@@ -121,7 +121,7 @@ class PostPage extends React.Component<PostPageProps, PostPageState> {
 
         <Divider hidden horizontal section />
 
-        <h1>Discussion:</h1>
+        <Header content="Discussion" />
         {post.id && <CommentList post_id={post.id} />}
         <Divider section />
 

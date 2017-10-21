@@ -81,7 +81,6 @@ class CommentList extends Component<CommentListProps> {
           </Comment.Group>
         ) : (
           <Header
-            size=""
             textAlign="left"
             content="Be the first to contribute your views!"
           />

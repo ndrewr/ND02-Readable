@@ -10,14 +10,6 @@ import { deleteComment, updateComment, updateScore } from '../actions/comments';
 
 import formatTime from '../utils/formatTime';
 
-// type CommentFields = {
-//   voteScore?: number,
-//   body?: string,
-//   id: string,
-//   timestamp: number,
-//   author?: string
-// };
-
 type CommentProps = {
   comment: any,
   deleteComment: () => void,
@@ -81,10 +73,7 @@ class CommentItem extends Component<CommentProps, CommentState> {
   };
 
   deleteComment = () => {
-    const { comment, deleteComment } = this.props;
-
-    console.log('will delete comment with id...', comment.id);
-
+    const { deleteComment } = this.props;
     deleteComment();
   };
 

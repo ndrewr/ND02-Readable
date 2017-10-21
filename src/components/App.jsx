@@ -3,24 +3,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
 
-import AppLayout from '../components/AppLayout'
+import AppLayout from '../components/AppLayout';
 
-import CategoryPage from '../views/CategoryPage'
-import HomePage from '../views/HomePage'
-import PostPage from '../views/PostPage'
+import CategoryPage from '../views/CategoryPage';
+import HomePage from '../views/HomePage';
+import PostPage from '../views/PostPage';
 
 type AppProps = {
   categories: Array<string>,
-  store: any,
+  store: any
 };
 
-const App = ({ categories, store } : AppProps) => {
-  // needed if passing addtl props to the View component bout to be rendered
-  const wrapView = (ViewComponent) => {
-    return (props) => <ViewComponent {...props} store={store} />
-  }
+const App = ({ categories, store }: AppProps) => {
+  // NOTE: need to wrap if passing addtl props to the View component bout to be rendered
+  const wrapView = ViewComponent => {
+    return props => <ViewComponent {...props} />;
+  };
 
   return (
     <Router>
@@ -35,10 +35,10 @@ const App = ({ categories, store } : AppProps) => {
       </Provider>
     </Router>
   );
-}
+};
 
-const mapStateToProps = (state) => ({
-  categories: state.categories || [],
-})
+const mapStateToProps = state => ({
+  categories: state.categories || []
+});
 
-export default connect(mapStateToProps)(App)
+export default connect(mapStateToProps)(App);

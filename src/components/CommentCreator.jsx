@@ -50,7 +50,6 @@ class CommentCreator extends Component<
       author: inputAuthor
     };
 
-    console.log('create the comment!');
     addComment(commentFields);
 
     this.setState({

@@ -1,24 +1,19 @@
 // @flow
 
-import * as actions from '../actions/actionTypes'
-
-const initialState = []
+import * as actions from '../actions/actionTypes';
 
 type CategoryAction = {
   type: string,
   categories: Array<string>
-}
+};
 
-const categoryReducer = (
-  state: Array<string> = initialState,
-  action: CategoryAction,
-) => {
+const categoryReducer = (state: Array<string> = [], action: CategoryAction) => {
   switch (action.type) {
     case actions.CATEGORIES_LOADED:
-      return action.categories
+      return action.categories;
     default:
-      return state
+      return state;
   }
-}
+};
 
-export default categoryReducer
+export default categoryReducer;

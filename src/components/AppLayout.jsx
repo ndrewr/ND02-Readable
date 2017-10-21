@@ -1,30 +1,24 @@
 // @flow
 
-import * as React from 'react'
-import {
-  Container,
-  // Divider,
-  // Grid,
-  // Header,
-  // Segment
-} from 'semantic-ui-react'
+import * as React from 'react';
+import { Container } from 'semantic-ui-react';
 
-import Footer from './Footer'
-import Navbar from './Navbar'
+import Footer from './Footer';
+import Navbar from './Navbar';
 
 type LayoutProps = {
   categories: any,
-  children?: React.Node,
+  children?: React.Node
 };
 
-const AppLayout = ({categories, children}: LayoutProps) => (
+const AppLayout = ({ categories, children }: LayoutProps) => (
   <div>
     <Navbar categories={categories} />
-    <Container text style={{ marginTop: '7em', minHeight: '90%'}}>
+    <Container text style={{ marginTop: '7em', minHeight: '90%' }}>
       {children}
     </Container>
     <Footer />
   </div>
-)
+);
 
-export default AppLayout
+export default AppLayout;

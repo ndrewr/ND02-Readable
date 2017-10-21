@@ -1,15 +1,15 @@
 // @flow
 
-import { combineReducers } from 'redux'
+import { combineReducers } from 'redux';
 
-import listFilter from './listFilter'
-import comments from './comments'
-import posts from './posts'
-import categories from './categories'
+import categories from './categories';
+import comments from './comments';
+import listFilter from './listFilter';
+import posts from './posts';
 
 export default combineReducers({
   categories,
   comments,
   listFilter,
-  posts,
+  posts
 });

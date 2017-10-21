@@ -2,32 +2,24 @@
 
 import React from 'react';
 
-import {
-  // Button,
-  // Container,
-  // Divider,
-  // Grid,
-  Header,
-  // Icon,
-  // Image,
-  // List,
-  // Menu,
-  // Segment,
-  // Statistic,
-  // Visibility,
-} from 'semantic-ui-react'
+import { Header } from 'semantic-ui-react';
 
-import PostCreator from '../components/PostCreator'
-import PostList from '../components/PostList'
+import PostCreator from '../components/PostCreator';
+import PostList from '../components/PostList';
 
 const HomePage = () => {
- return (
+  return (
     <div className="home-page">
-      <Header size="huge" textAlign="center" content="Making life more Readable!" dividing />
+      <Header
+        size="huge"
+        textAlign="center"
+        content="Making life more Readable!"
+        dividing
+      />
       <PostCreator />
       <PostList />
     </div>
   );
-}
+};
 
-export default HomePage
+export default HomePage;

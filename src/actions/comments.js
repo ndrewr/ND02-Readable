@@ -19,23 +19,6 @@ type CommentAction = {
   commentData?: any
 };
 
-export function loadComment(comment_id: string) {
-  return (dispatch: (action: CommentAction) => void) => {
-    return readableApi
-      .getComment(comment_id)
-      .then(post => {
-        dispatch({
-          type: actions.COMMENT_LOADED,
-          post: post
-        });
-      })
-      .catch(error => {
-        console.log('error!');
-        throw error;
-      });
-  };
-}
-
 export function loadComments(post_id: string) {
   return (dispatch: (action: CommentAction) => void) => {
     return readableApi

@@ -117,7 +117,6 @@ export function deletePost(post_id: string) {
     return readableApi
       .deletePost(post_id)
       .then(result => {
-        console.log('post deleted! ', post_id, result);
         dispatch({
           type: actions.DELETE_POST,
           deletedPostId: post_id

@@ -2,12 +2,13 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button, Divider, Grid, Header } from 'semantic-ui-react';
+import { Button, Divider, Grid, Header, Icon } from 'semantic-ui-react';
 
 import formatTime from '../utils/formatTime';
 
 import CommentCreator from '../components/CommentCreator';
 import CommentList from '../components/CommentList';
+import ConfirmButton from '../components/ConfirmButton';
 import PostEditor from '../components/PostEditor';
 
 import ScoreDisplay from '../components/ScoreDisplay';
@@ -78,22 +79,18 @@ class PostPage extends React.Component<PostPageProps, PostPageState> {
       <div className="post-page">
         <Header size="small" textAlign="left" content={`/${post.category}`} />
 
-        <div>
-          <Button as="button" onClick={this.toggleEdit}>
-            {editMode ? 'CANCEL' : 'EDIT'}
-          </Button>
-          <Button as="button" onClick={this.deletePost}>
-            DELETE
-          </Button>
-        </div>
-        {editMode ? (
-          <PostEditor
-            post={post}
-            selectedCategory={post.category}
-            onSubmit={this.toggleEdit}
-          />
-        ) : (
-          <Grid>
+        <Grid>
+          {editMode ? (
+            <Grid.Row>
+              <Grid.Column>
+                <PostEditor
+                  post={post}
+                  selectedCategory={post.category}
+                  onSubmit={this.toggleEdit}
+                />
+              </Grid.Column>
+            </Grid.Row>
+          ) : (
             <Grid.Row>
               <Grid.Column width={12}>
                 <Header size="huge" content={post.title} />
@@ -113,11 +110,26 @@ class PostPage extends React.Component<PostPageProps, PostPageState> {
                   updateScore={this.updateScore}
                 />
               </Grid.Column>
-            </Grid.Row>
 
-            <p>{post.body}</p>
-          </Grid>
-        )}
+              <Grid.Column width={12}>
+                <p style={{ fontSize: '18px' }}>{post.body}</p>
+              </Grid.Column>
+            </Grid.Row>
+          )}
+
+          <Grid.Row>
+            <Grid.Column textAlign="right" width={12}>
+              <Button
+                as="button"
+                compact
+                content={editMode ? 'Cancel' : 'Edit'}
+                size="small"
+                onClick={this.toggleEdit}
+              />
+              <ConfirmButton onConfirm={this.deletePost} size="small" />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
 
         <Divider hidden horizontal section />
 

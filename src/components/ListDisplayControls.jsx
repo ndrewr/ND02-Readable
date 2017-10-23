@@ -1,7 +1,6 @@
 // @flow
 
 import React, { Component } from 'react';
-
 import { Button, Icon, Form, Radio } from 'semantic-ui-react';
 
 type Props = {

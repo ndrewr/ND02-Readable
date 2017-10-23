@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, Comment, Form } from 'semantic-ui-react';
 
+import ConfirmButton from './ConfirmButton';
 import ScoreDisplay from './ScoreDisplay';
 
 import { deleteComment, updateComment, updateScore } from '../actions/comments';
@@ -106,6 +107,8 @@ class CommentItem extends Component<CommentProps, CommentState> {
               />
             </Comment.Action>
             <Comment.Action>
+              <ConfirmButton onConfirm={this.deleteComment} size="mini" />
+
               <Button
                 compact
                 icon="remove"

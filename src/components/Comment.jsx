@@ -108,14 +108,6 @@ class CommentItem extends Component<CommentProps, CommentState> {
             </Comment.Action>
             <Comment.Action>
               <ConfirmButton onConfirm={this.deleteComment} size="mini" />
-
-              <Button
-                compact
-                icon="remove"
-                size="mini"
-                style={this.styles.actionButton}
-                onClick={this.deleteComment}
-              />
             </Comment.Action>
           </Comment.Actions>
           {!editMode ? (

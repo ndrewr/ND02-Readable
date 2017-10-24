@@ -36,6 +36,7 @@ const emptyPost = {
 };
 
 type PostPageProps = {
+  comment_count: number,
   history: any,
   post_id: string,
   post: PostItem,
@@ -72,7 +73,7 @@ class PostPage extends React.Component<PostPageProps, PostPageState> {
   };
 
   render() {
-    const { post } = this.props;
+    const { comment_count, post } = this.props;
     const { editMode } = this.state;
 
     return (
@@ -133,7 +134,13 @@ class PostPage extends React.Component<PostPageProps, PostPageState> {
 
         <Divider hidden horizontal section />
 
-        <Header content="Discussion" />
+        <Header>
+          <Header.Content>Discussion</Header.Content>
+          <Header.Subheader
+            content={`(Showing ${comment_count} comments)`}
+            style={{ display: 'inline-block', marginLeft: '1em' }}
+          />
+        </Header>
         {post.id && <CommentList post_id={post.id} />}
         <Divider section />
 
@@ -148,6 +155,7 @@ const mapStateToProps = (state, props) => {
   let post = state.posts[post_id] || emptyPost;
 
   return {
+    comment_count: Object.keys(state.comments).length,
     post_id,
     post
   };

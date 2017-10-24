@@ -28,7 +28,6 @@ class ConfirmButton extends Component<ConfirmBtnProps, ConfirmBtnState> {
   handleClick = () => {
     const { onConfirm } = this.props;
     const { confirmed } = this.state;
-    console.log('clicked');
 
     if (confirmed) {
       onConfirm();

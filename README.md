@@ -1,99 +1,59 @@
-# Readable API Server
+# Readable
 
-## Installation
+A project built in fulfillment of Udacity's React Developer nanodegree program.
+Allows Users to view lists of category-defined posts. Each post has it's own dedicated page with details and comments. New posts can be created; existing posts can be edited or deleted. Comments can also be added, edited or deleted.
 
-Install packages: `npm install`
-Launch server: `node server`
-Unless modified in `config.js` server will use port 5001
+Uses React in combo with SemanticUI to create the views.
+
+Bootstrapped with [create-react-app](https://github.com/facebookincubator/create-react-app).
+
+Based on [this project template](https://github.com/udacity/reactnd-project-readable-starter).
 
 
-## API
-Use an Authorization header to work with your own data:
+### Prerequisites
 
-`fetch(url, { headers: { 'Authorization': 'whatever-you-want' }})`
+Running this project requires [Node](https://nodejs.org/en/). Optionally, [Yarn](https://code.facebook.com/posts/1840075619545360) package manager can be installed as well.
 
-The following endpoints are available:  
 
-`GET /categories`  
-  **USAGE:**   
-    Get all of the categories available for the app. List is found in categories.js.
-    Feel free to extend this list as you desire.    
+### Installing and Running *IMPORTANT*
 
-`GET /:category/posts`  
-  **USAGE:**    
-    Get all of the posts for a particular category   
+Clone the repo and run the command `yarn` or `npm install`.
+(NOTE: development was done using Yarn but either should work)
 
-`GET /posts`  
-  **USAGE:**    
-    Get all of the posts. Useful for the main page when no category is selected.  
+To launch the development server run the command:
+```
+npm start
+or
+yarn start
+```
 
-`POST /posts`  
-  **USAGE:**  
-    Add a new post  
-  
-  **PARAMS:**   
-    id - UUID should be fine, but any unique id will work  
-    timestamp - timestamp in whatever format you like, you can use Date.now() if you like  
-    title - String  
-    body - String  
-    owner - String  
-    category: Any of the categories listed in categories.js. Feel free to extend this list as you desire.  
+The page should open automatically in browser. Else go to `localhost:3000` in your browser to view the app.
 
-`GET /posts/:id`  
-  **USAGE:**  
-    Get the details of a single post  
+Unless modified in `server/config.js` server will use port 5001
 
-`POST /posts/:id`  
-  **USAGE:**  
-    Used for voting on a post  
 
-  **PARAMS:**  
-    option - String: Either "upVote" or "downVote"  
-    
-`PUT /posts/:id`  
-  **USAGE:**  
-    Edit the details of an existing post  
+## Built With
 
-  **PARAMS:**  
-    title - String  
-    body - String  
+* [React](https://facebook.github.io/react/)
+* [React-SemanticUI](https://github.com/Semantic-Org/Semantic-UI-React)
 
-`DELETE /posts/:id`  
-  **USAGE:**  
-    Sets the deleted flag for a post to 'true'.   
-    Sets the parentDeleted flag for all child comments to 'true'.  
-  
-`GET /posts/:id/comments`  
-  **USAGE:**  
-    Get all the comments for a single post  
 
-`POST /comments`  
-  **USAGE:**  
-    Add a comment to a post  
+## Resource links
 
-  **PARAMS:**  
-    id: Any unique ID. As with posts, UUID is probably the best here.  
-    timestamp: timestamp. Get this however you want.  
-    body: String  
-    owner: String  
-    parentId: Should match a post id in the database.  
+[Redux documentation](http://redux.js.org/)
 
-`GET /comments/:id`  
-  **USAGE:**  
-    Get the details for a single comment  
+[Building a Simple CRUD App with React + Redux](http://www.thegreatcodeadventure.com/building-a-simple-crud-app-with-react-redux-part-1/#table-of-contents)
 
-`POST /comments/:id`  
-  **USAGE:**  
-    Used for voting on a comment.  
+[Redux Real World Example](https://github.com/reactjs/redux/tree/master/examples/real-world)
 
-`PUT /comments/:id`  
-  **USAGE:**  
-    Edit the details of an existing comment  
-  
-  **PARAMS:**  
-    timestamp: timestamp. Get this however you want.  
-    body: String  
+*and obligatory StackOverflow / Google mention*
 
-`DELETE /comments/:id`  
-  **USAGE:**  
-    Sets a comment's deleted flag to 'true'
+
+## Authors
+
+* **Andrew R Chen** - *Initial work* - [UncleOptimus](https://github.com/uncleoptimus)
+
+
+## License
+
+This project is licensed under the MIT License

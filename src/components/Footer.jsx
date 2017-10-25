@@ -9,7 +9,7 @@ const Footer = () => (
   <Segment inverted vertical style={{ margin: '10% 0 0', padding: '5em 0em' }}>
     <Container textAlign="center">
       <Divider inverted section />
-      <Logo spin />
+      <Logo />
       <List horizontal inverted divided link>
         <List.Item as="a" href="#">
           Site Map

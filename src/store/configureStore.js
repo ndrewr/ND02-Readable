@@ -1,39 +1,18 @@
-import { createStore, applyMiddleware, compose } from 'redux'
-import thunk from 'redux-thunk'
-// import { createLogger } from 'redux-logger'
-// import api from '../middleware/api'
-import rootReducer from '../reducers'
-// import DevTools from '../containers/DevTools'
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
+import rootReducer from '../reducers';
 
-import { loadPosts } from '../actions/posts'
-import { loadCategories } from '../actions/categories'
-// import { loadComments } from '../actions/comments'
-
+import { loadPosts } from '../actions/posts';
+import { loadCategories } from '../actions/categories';
 
 const configureStore = () => {
-  const store = createStore(
-    rootReducer,
-    compose(
-      applyMiddleware(thunk)
-      // applyMiddleware(thunk, api, createLogger()),
-      // DevTools.instrument()
-    )
-  )
-
-  // if (module.hot) {
-    // Enable Webpack hot module replacement for reducers
-    // module.hot.accept('../reducers', () => {
-      // const nextRootReducer = require('../reducers').default
-      // store.replaceReducer(nextRootReducer)
-    // })
-  // }
+  const store = createStore(rootReducer, compose(applyMiddleware(thunk)));
 
   // fetch initial data
-  store.dispatch(loadCategories())
-  store.dispatch(loadPosts())
-  // store.dispatch(loadComments())
+  store.dispatch(loadCategories());
+  store.dispatch(loadPosts());
 
-  return store
-}
+  return store;
+};
 
-export default configureStore
+export default configureStore;

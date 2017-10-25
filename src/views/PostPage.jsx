@@ -136,10 +136,12 @@ class PostPage extends React.Component<PostPageProps, PostPageState> {
 
         <Header>
           <Header.Content>Discussion</Header.Content>
-          <Header.Subheader
-            content={`(Showing ${comment_count} comments)`}
-            style={{ display: 'inline-block', marginLeft: '1em' }}
-          />
+          {Boolean(comment_count) && (
+            <Header.Subheader
+              content={`(Showing ${comment_count} comments)`}
+              style={{ display: 'inline-block', marginLeft: '1em' }}
+            />
+          )}
         </Header>
         {post.id && <CommentList post_id={post.id} />}
         <Divider section />

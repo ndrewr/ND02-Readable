@@ -1,9 +1,9 @@
 // @flow
 
 import React from 'react';
-import { Image } from 'semantic-ui-react';
+import { Icon, Image } from 'semantic-ui-react';
 
-import logo from '../logo.svg';
+// import logo from '../logo.svg'; // uncomment to import custom logo
 
 import injectStyles from '../utils/injectStyles';
 
@@ -19,7 +19,7 @@ injectStyles(spinAnimation);
 type LogoProps = {
   size: any,
   spin?: false,
-  style: any // css style object
+  style?: any // css style object
 };
 
 const Logo = ({ size, spin, style }: LogoProps) => {
@@ -32,11 +32,15 @@ const Logo = ({ size, spin, style }: LogoProps) => {
   const imageProps = {
     centered: true,
     size: size ? size : 'medium',
-    src: logo,
+    // src: logo,
     style: logoStyles
   };
 
-  return <Image alt="logo" {...imageProps} />;
+  return (
+    <Image alt="logo" {...imageProps}>
+      <Icon name="bookmark" size="huge" />
+    </Image>
+  );
 };
 
 export default Logo;

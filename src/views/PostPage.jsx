@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button, Divider, Grid, Header, Icon } from 'semantic-ui-react';
+import { Button, Divider, Grid, Header } from 'semantic-ui-react';
 
 import formatTime from '../utils/formatTime';
 

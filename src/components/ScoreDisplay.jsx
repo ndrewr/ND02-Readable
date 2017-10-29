@@ -6,12 +6,14 @@ import { Button, Icon, Statistic } from 'semantic-ui-react';
 type scoreDisplayProps = {
   score?: number,
   size?: 'tiny' | 'small' | 'large' | 'big',
+  customStyles?: any,
   updateScore: any => void
 };
 
 const ScoreDisplay = ({
   score = 0,
   size = 'large',
+  customStyles = {},
   updateScore
 }: scoreDisplayProps) => {
   const styles = {
@@ -26,11 +28,16 @@ const ScoreDisplay = ({
     scoreStyles: {
       width: '100%',
       margin: 0
+    },
+    container: {
+      display: 'inline-block',
+      width: '80px',
+      ...customStyles
     }
   };
 
   return (
-    <div style={{ display: 'inline-block', width: '80px' }}>
+    <div style={styles.container}>
       <Button
         animated
         style={styles.voteButtonStyles}

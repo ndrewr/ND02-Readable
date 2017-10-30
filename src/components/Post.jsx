@@ -3,12 +3,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Button, Divider, Header, List, Statistic } from 'semantic-ui-react';
+import {
+  Button,
+  Divider,
+  Header,
+  Label,
+  List,
+  Statistic
+} from 'semantic-ui-react';
 
 import ConfirmButton from '../components/ConfirmButton';
 import PostEditor from '../components/PostEditor';
 import ScoreDisplay from '../components/ScoreDisplay';
 
+import { loadComments } from '../actions/comments';
 import { deletePost, updateScore } from '../actions/posts';
 
 import formatTime from '../utils/formatTime';
@@ -23,19 +31,29 @@ type PostItem = {
 };
 
 type PostProps = {
+  commentCount: number,
   post: PostItem,
   deletePost: string => void,
-  updateVoteScore: (string, string) => void
+  updateVoteScore: (string, string) => void,
+
+  loadComments: string => void
 };
 
-class Post extends Component<PostProps, { editMode: boolean }> {
+class Post extends Component<
+  PostProps,
+  { editMode: boolean, commentCount: number }
+> {
   state = {
-    editMode: false
+    editMode: false,
+    commentCount: this.props.commentCount
   };
 
   styles = {
     container: {
       paddingTop: '.5em'
+    },
+    commentCounter: {
+      marginLeft: '1.5em'
     },
     score: {
       textAlign: 'right'
@@ -60,13 +78,23 @@ class Post extends Component<PostProps, { editMode: boolean }> {
   };
 
   toggleEdit = event => {
-    console.log('toggle edit mode');
     this.setState(state => ({ editMode: !state.editMode }));
   };
 
+  componentWillMount() {
+    const { post, loadComments } = this.props;
+    loadComments(post.id);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.commentCount) {
+      this.setState({ commentCount: nextProps.commentCount });
+    }
+  }
+
   render() {
     const { post } = this.props;
-    const { editMode } = this.state;
+    const { commentCount, editMode } = this.state;
 
     return (
       <List.Item style={this.styles.container}>
@@ -105,6 +133,10 @@ class Post extends Component<PostProps, { editMode: boolean }> {
             style={this.styles.button}
             onConfirm={this.deletePost}
           />
+
+          <Label as="a" color="teal" tag style={this.styles.commentCounter}>
+            {commentCount} comments
+          </Label>
         </div>
         {editMode && (
           <PostEditor
@@ -118,10 +150,25 @@ class Post extends Component<PostProps, { editMode: boolean }> {
   }
 }
 
+const mapStateToProps = (state, props) => {
+  const allComments = Object.keys(state.comments).map(
+    comment_id => state.comments[comment_id]
+  );
+  const postComments = allComments.filter(
+    comment => props.post.id === comment.parentId
+  );
+
+  return {
+    commentCount: postComments.length
+  };
+};
+
 const mapDispatchToProps = dispatch => ({
+  loadComments: post_id => dispatch(loadComments(post_id)),
+
   deletePost: (post_id: string) => dispatch(deletePost(post_id)),
   updateVoteScore: (post_id: string, vote: 'upVote' | 'downVote') =>
     dispatch(updateScore(post_id, { option: vote }))
 });
 
-export default connect(null, mapDispatchToProps)(Post);
+export default connect(mapStateToProps, mapDispatchToProps)(Post);

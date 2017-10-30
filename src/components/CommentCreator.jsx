@@ -66,8 +66,6 @@ class CommentCreator extends Component<
   render() {
     const { inputContent, inputAuthor, showForm } = this.state;
 
-    const headerText = showForm ? 'Comment!' : 'Comment?';
-
     const styles = {
       form: {
         height: showForm ? '100%' : '0',
@@ -90,7 +88,7 @@ class CommentCreator extends Component<
             size="large"
             onClick={this.toggleFormOpen}
           >
-            {headerText}
+            {showForm ? 'Nevermind!' : 'Comment?'}
           </Button>
         </div>
         <Form style={styles.form} onSubmit={this.onPostSubmit}>

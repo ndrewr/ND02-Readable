@@ -3,8 +3,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Divider, Header, List, Statistic } from 'semantic-ui-react';
+import { Button, Divider, Header, List, Statistic } from 'semantic-ui-react';
 
+import ConfirmButton from '../components/ConfirmButton';
 import ScoreDisplay from '../components/ScoreDisplay';
 
 import { deletePost, updateScore } from '../actions/posts';
@@ -16,12 +17,13 @@ type PostItem = {
   voteScore?: number,
   title?: string,
   id: string,
-  timestamp: string,
+  timestamp: number,
   author?: string
 };
 
 type PostProps = {
   post: PostItem,
+  deletePost: string => void,
   updateVoteScore: (string, string) => void
 };
 
@@ -32,7 +34,15 @@ class Post extends Component<PostProps> {
     },
     score: {
       textAlign: 'right'
+    },
+    button: {
+      marginTop: '.5em'
     }
+  };
+
+  deletePost = () => {
+    const { post, deletePost } = this.props;
+    deletePost(post.id);
   };
 
   scoreUpdateHandler = event => {
@@ -69,27 +79,36 @@ class Post extends Component<PostProps> {
             </List.Description>
           </List.Content>
         </Link>
+        <div>
+          <Button color="grey" compact size="tiny" style={this.styles.button}>
+            Edit
+          </Button>
+          <ConfirmButton
+            size="tiny"
+            style={this.styles.button}
+            onConfirm={this.deletePost}
+          />
+        </div>
       </List.Item>
     );
   }
 }
 
-const mapStateToProps = (state, props) => {
-  // const post_id = props.match.params.post_id;
-  // let post = state.posts[post_id] || emptyPost;
-  // return {
-  //   comment_count: Object.keys(state.comments).length,
-  //   post_id,
-  //   post
-  // };
-};
+// const mapStateToProps = (state, props) => {
+// const post_id = props.match.params.post_id;
+// let post = state.posts[post_id] || emptyPost;
+// return {
+//   comment_count: Object.keys(state.comments).length,
+//   post_id,
+//   post
+// };
+// };
 
 const mapDispatchToProps = dispatch => ({
-  // deletePost: (post_id: string) => dispatch(deletePost(post_id)),
+  deletePost: (post_id: string) => dispatch(deletePost(post_id)),
   updateVoteScore: (post_id: string, vote: 'upVote' | 'downVote') =>
     dispatch(updateScore(post_id, { option: vote }))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Post);
-
+export default connect(null, mapDispatchToProps)(Post);
 // export default Post;

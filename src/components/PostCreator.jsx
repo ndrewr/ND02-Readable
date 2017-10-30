@@ -136,7 +136,7 @@ class PostCreator extends Component<PostCreatorProps, PostCreatorState> {
             size="large"
             onClick={this.toggleFormOpen}
           >
-            {showForm ? 'Post!' : 'Post?'}
+            {showForm ? 'Nevermind.' : 'Post?'}
           </Button>
         </div>
         <Form style={styles.form} onSubmit={this.onPostSubmit}>

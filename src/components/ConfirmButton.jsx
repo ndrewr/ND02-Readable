@@ -41,7 +41,7 @@ class ConfirmButton extends Component<ConfirmBtnProps, ConfirmBtnState> {
   };
 
   render() {
-    const { size } = this.props;
+    const { size, style = {} } = this.props;
     const { confirmed } = this.state;
 
     return (
@@ -51,6 +51,7 @@ class ConfirmButton extends Component<ConfirmBtnProps, ConfirmBtnState> {
         compact
         content={confirmed ? 'Sure?' : 'Delete'}
         size={size}
+        style={style}
         onBlur={this.handleBlur}
         onClick={this.handleClick}
       />

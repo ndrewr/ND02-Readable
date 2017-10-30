@@ -13,7 +13,7 @@ const HomePage = () => {
       <Header
         size="huge"
         textAlign="center"
-        content="Making life more Readable!"
+        content="READING is FUN-damental!"
         dividing
       />
       <PostCreator />

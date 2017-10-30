@@ -13,12 +13,12 @@ type NavProps = {
 const Navbar = ({ categories }: NavProps) => (
   <Menu fixed="top" inverted style={{ height: '80px' }}>
     <Container>
-      <Menu.Item as="a" header>
+      <Menu.Item as={Link} to="/" header>
         <Logo size="mini" style={{ marginRight: '1.5em' }} />
         READABLE
       </Menu.Item>
       <Menu.Item as={Link} to="/">
-        Home
+        Trending
       </Menu.Item>
       {categories.map(category => (
         <Menu.Item

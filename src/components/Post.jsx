@@ -3,14 +3,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import {
-  Button,
-  Divider,
-  Header,
-  Label,
-  List,
-  Statistic
-} from 'semantic-ui-react';
+import { Button, Divider, Header, Label, List } from 'semantic-ui-react';
 
 import ConfirmButton from '../components/ConfirmButton';
 import PostEditor from '../components/PostEditor';

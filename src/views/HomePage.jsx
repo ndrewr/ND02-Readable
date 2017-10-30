@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { Header } from 'semantic-ui-react';
+import { Header, Image } from 'semantic-ui-react';
 
 import PostCreator from '../components/PostCreator';
 import PostList from '../components/PostList';
@@ -16,6 +16,7 @@ const HomePage = () => {
         content="READING is FUN-damental!"
         dividing
       />
+      <Image src="images/reading-quote-suess.jpg" centered />
       <PostCreator />
       <PostList />
     </div>

@@ -2,6 +2,8 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+
 import { Button, Divider, Grid, Header } from 'semantic-ui-react';
 
 import formatTime from '../utils/formatTime';
@@ -78,7 +80,13 @@ class PostPage extends React.Component<PostPageProps, PostPageState> {
 
     return (
       <div className="post-page">
-        <Header size="small" textAlign="left" content={`/${post.category}`} />
+        <Header
+          as={Link}
+          to={`/category/${post.category}`}
+          size="small"
+          textAlign="left"
+          content={`/${post.category}`}
+        />
 
         <Grid>
           {editMode ? (

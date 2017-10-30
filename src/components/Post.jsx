@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { Button, Divider, Header, List, Statistic } from 'semantic-ui-react';
 
 import ConfirmButton from '../components/ConfirmButton';
+import PostEditor from '../components/PostEditor';
 import ScoreDisplay from '../components/ScoreDisplay';
 
 import { deletePost, updateScore } from '../actions/posts';
@@ -27,10 +28,14 @@ type PostProps = {
   updateVoteScore: (string, string) => void
 };
 
-class Post extends Component<PostProps> {
+class Post extends Component<PostProps, { editMode: boolean }> {
+  state = {
+    editMode: false
+  };
+
   styles = {
     container: {
-      // marginBottom: '1rem',
+      paddingTop: '.5em'
     },
     score: {
       textAlign: 'right'
@@ -54,8 +59,14 @@ class Post extends Component<PostProps> {
     updateVoteScore(post.id, event.currentTarget.value);
   };
 
+  toggleEdit = event => {
+    console.log('toggle edit mode');
+    this.setState(state => ({ editMode: !state.editMode }));
+  };
+
   render() {
     const { post } = this.props;
+    const { editMode } = this.state;
 
     return (
       <List.Item style={this.styles.container}>
@@ -80,8 +91,14 @@ class Post extends Component<PostProps> {
           </List.Content>
         </Link>
         <div>
-          <Button color="grey" compact size="tiny" style={this.styles.button}>
-            Edit
+          <Button
+            color="grey"
+            compact
+            size="tiny"
+            style={this.styles.button}
+            onClick={this.toggleEdit}
+          >
+            {editMode ? 'Cancel' : 'Edit'}
           </Button>
           <ConfirmButton
             size="tiny"
@@ -89,20 +106,17 @@ class Post extends Component<PostProps> {
             onConfirm={this.deletePost}
           />
         </div>
+        {editMode && (
+          <PostEditor
+            post={post}
+            selectedCategory={post.category}
+            onSubmit={this.toggleEdit}
+          />
+        )}
       </List.Item>
     );
   }
 }
-
-// const mapStateToProps = (state, props) => {
-// const post_id = props.match.params.post_id;
-// let post = state.posts[post_id] || emptyPost;
-// return {
-//   comment_count: Object.keys(state.comments).length,
-//   post_id,
-//   post
-// };
-// };
 
 const mapDispatchToProps = dispatch => ({
   deletePost: (post_id: string) => dispatch(deletePost(post_id)),
@@ -111,4 +125,3 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(null, mapDispatchToProps)(Post);
-// export default Post;
